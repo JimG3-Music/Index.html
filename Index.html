@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#111827">
+<title>ML6CMG.T.W — Tin Whistle Melody Teacher</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:#f3f4f6;
+  color:#172033;
+}
+button,select,input{font:inherit}
+button{cursor:pointer}
+header{
+  background:#111827;
+  color:white;
+  text-align:center;
+  padding:25px 15px;
+}
+header h1{margin:0;font-size:clamp(2rem,6vw,3.5rem)}
+header p{margin:5px 0 0;color:#cbd5e1;font-size:1.1rem}
+main{max-width:1200px;margin:auto;padding:18px}
+.card{
+  background:white;
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:18px;
+  box-shadow:0 4px 18px rgba(0,0,0,.08);
+}
+h2{margin-top:0}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+label{font-weight:700;display:block}
+input,select{
+  width:100%;
+  margin-top:6px;
+  padding:12px;
+  border:2px solid #d1d5db;
+  border-radius:10px;
+  background:white;
+}
+.controls{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:15px;
+}
+button{
+  border:0;
+  border-radius:10px;
+  padding:11px 16px;
+  background:#e5e7eb;
+  color:#111827;
+  font-weight:700;
+}
+button:hover{filter:brightness(.96)}
+.primary{
+  background:#111827;
+  color:white;
+}
+.teach{
+  background:#2563eb;
+  color:white;
+  font-size:1.25rem;
+  padding:15px 28px;
+}
+.danger{background:#fee2e2;color:#991b1b}
+.speed.active{
+  background:#111827;
+  color:white;
+}
+#staff{
+  min-height:180px;
+  overflow-x:auto;
+}
+.sequence{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.seq-note{
+  min-width:55px;
+  text-align:center;
+  padding:9px;
+  background:#e5e7eb;
+  border-radius:10px;
+  font-weight:800;
+}
+.seq-note.current{
+  background:#2563eb;
+  color:white;
+  transform:scale(1.06);
+}
+.lesson{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+  align-items:center;
+}
+.current-note{
+  text-align:center;
+  border:3px solid #2563eb;
+  border-radius:18px;
+  padding:20px;
+}
+.note-name{
+  font-size:clamp(2.5rem,8vw,5rem);
+  font-weight:900;
+}
+.teaching-number{
+  font-size:clamp(2rem,7vw,4rem);
+  font-weight:900;
+  color:#2563eb;
+}
+.whistle{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:7px;
+  margin:15px 0;
+}
+.hole{
+  width:45px;
+  height:45px;
+  border:4px solid #111827;
+  border-radius:50%;
+  background:white;
+}
+.hole.covered{background:#111827}
+.piano-wrap{overflow-x:auto;padding-bottom:8px}
+.piano{
+  position:relative;
+  height:220px;
+  min-width:720px;
+  user-select:none;
+}
+.white{
+  position:relative;
+  display:inline-block;
+  width:55px;
+  height:210px;
+  background:white;
+  border:1px solid #333;
+  border-radius:0 0 7px 7px;
+  vertical-align:top;
+}
+.white span{
+  position:absolute;
+  bottom:8px;
+  width:100%;
+  text-align:center;
+  font-size:.8rem;
+}
+.black{
+  position:absolute;
+  z-index:2;
+  width:34px;
+  height:130px;
+  background:#111827;
+  border-radius:0 0 5px 5px;
+}
+.white.active{background:#bfdbfe}
+.black.active{background:#2563eb}
+footer{
+  text-align:center;
+  padding:25px;
+  color:#64748b;
+}
+.small{font-size:.9rem;color:#64748b}
+.status{
+  padding:10px;
+  border-radius:10px;
+  background:#eef2ff;
+  margin-top:12px;
+  text-align:center;
+  font-weight:700;
+}
+
+@media(max-width:800px){
+  .grid{grid-template-columns:1fr 1fr}
+  .lesson{grid-template-columns:1fr}
+}
+@media(max-width:500px){
+  main{padding:10px}
+  .grid{grid-template-columns:1fr}
+  .card{padding:15px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>ML6CMG.T.W</h1>
+  <p>Tin Whistle Melody Teacher</p>
+</header>
+
+<main>
+
+<section class="card">
+<h2>Song Information</h2>
+
+<div class="grid">
+  <div>
+    <label>Song name</label>
+    <input id="songName" value="My Tin Whistle Tune">
+  </div>
+
+  <div>
+    <label>Key</label>
+    <select id="key">
+      <option>D</option>
+      <option>G</option>
+      <option>C</option>
+      <option>A</option>
+      <option>E</option>
+    </select>
+  </div>
+
+  <div>
+    <label>Time signature</label>
+    <select id="time">
+      <option>4/4</option>
+      <option>3/4</option>
+      <option>2/4</option>
+      <option>6/8</option>
+    </select>
+  </div>
+
+  <div>
+    <label>Whistle</label>
+    <select id="whistle">
+      <option>D whistle</option>
+      <option>C whistle</option>
+      <option>G whistle</option>
+    </select>
+  </div>
+</div>
+</section>
+
+<section class="card">
+<h2>Melody</h2>
+
+<div id="sequence" class="sequence">
+  <span class="small">Enter notes using the piano below.</span>
+</div>
+
+<div class="controls">
+  <button onclick="deleteLast()">Delete last</button>
+  <button onclick="undo()">Undo</button>
+  <button onclick="redo()">Redo</button>
+  <button class="danger" onclick="clearMelody()">Clear melody</button>
+  <button class="primary" onclick="playMelody()">▶ Play melody</button>
+</div>
+</section>
+
+<section class="card">
+<h2>Musical Staff</h2>
+<div id="staff"></div>
+</section>
+
+<section class="card">
+<div class="lesson">
+
+<div class="current-note">
+  <div class="small">CURRENT NOTE</div>
+  <div id="currentNote" class="note-name">—</div>
+  <div id="currentNumber" class="teaching-number">—</div>
+  <div class="small">ML6CMG.T.W TEACHING NUMBER</div>
+
+  <div class="whistle" id="fingering"></div>
+
+  <strong id="playNow">READY</strong>
+</div>
+
+<div>
+<h2>Teach Me</h2>
+<p>
+Hear the note → See the note → Learn the number →
+See the fingering → Play the note → Repeat
+</p>
+
+<div class="controls">
+<button class="teach" onclick="teachMe()">▶ TEACH ME</button>
+<button onclick="pauseTeach()">⏸ Pause</button>
+<button onclick="restartTeach()">↻ Restart</button>
+<button onclick="previousNote()">◀ Previous</button>
+<button onclick="nextNote()">Next ▶</button>
+</div>
+
+<div class="controls">
+<button class="speed active" id="slow" onclick="setSpeed(1500,this)">SLOW</button>
+<button class="speed" onclick="setSpeed(900,this)">NORMAL</button>
+<button class="speed" onclick="setSpeed(500,this)">FAST</button>
+</div>
+
+<label style="margin-top:15px">
+<input type="checkbox" id="loop" style="width:auto">
+ Loop melody
+</label>
+
+<div id="status" class="status">Ready to teach.</div>
+</div>
+
+</div>
+</section>
+
+<section class="card">
+<h2>Piano</h2>
+<p class="small">
+Tap a key to hear it and add it to your melody.
+</p>
+
+<div class="piano-wrap">
+<div class="piano" id="piano"></div>
+</div>
+</section>
+
+</main>
+
+<footer>
+ML6CMG.T.W — Tin Whistle Melody Teacher<br>
+Built for learning, practice and sharing music.
+</footer>
+
+<script>
+
+/* =========================================================
+   ML6CMG.T.W
+   Tin Whistle Teaching Database
+   Standard D whistle
+   ========================================================= */
+
+const WHISTLE = {
+
+"D4": {
+  name:"D",
+  number:"6",
+  holes:[true,true,true,true,true,true]
+},
+"E4": {
+  name:"E",
+  number:"5",
+  holes:[true,true,true,true,true,false]
+},
+"F#4": {
+  name:"F#",
+  number:"4",
+  holes:[true,true,true,true,false,false]
+},
+"G4": {
+  name:"G",
+  number:"3",
+  holes:[true,true,true,false,false,false]
+},
+"A4": {
+  name:"A",
+  number:"2",
+  holes:[true,true,false,false,false,false]
+},
+"B4": {
+  name:"B",
+  number:"1",
+  holes:[true,false,false,false,false,false]
+},
+"C#5": {
+  name:"C#",
+  number:"0",
+  holes:[false,false,false,false,false,false]
+},
+
+"D5": {
+  name:"HIGH D",
+  number:"6^",
+  holes:[true,true,true,true,true,true]
+},
+"E5": {
+  name:"HIGH E",
+  number:"5^",
+  holes:[true,true,true,true,true,false]
+},
+"F#5": {
+  name:"HIGH F#",
+  number:"4^",
+  holes:[true,true,true,true,false,false]
+},
+"G5": {
+  name:"HIGH G",
+  number:"3^",
+  holes:[true,true,true,false,false,false]
+},
+"A5": {
+  name:"HIGH A",
+  number:"2^",
+  holes:[true,true,false,false,false,false]
+},
+"B5": {
+  name:"HIGH B",
+  number:"1^",
+  holes:[true,false,false,false,false,false]
+},
+"C#6": {
+  name:"HIGH C#",
+  number:"0^",
+  holes:[false,false,false,false,false,false]
+}
+
+};
+
+
+/* =========================================================
+   NOTE DATA
+   ========================================================= */
+
+const NOTES = [
+ {key:"D4",name:"D",freq:293.66},
+ {key:"E4",name:"E",freq:329.63},
+ {key:"F#4",name:"F#",freq:369.99},
+ {key:"G4",name:"G",freq:392.00},
+ {key:"A4",name:"A",freq:440.00},
+ {key:"B4",name:"B",freq:493.88},
+ {key:"C#5",name:"C#",freq:554.37},
+ {key:"D5",name:"HIGH D",freq:587.33},
+ {key:"E5",name:"HIGH E",freq:659.25},
+ {key:"F#5",name:"HIGH F#",freq:739.99},
+ {key:"G5",name:"HIGH G",freq:783.99},
+ {key:"A5",name:"HIGH A",freq:880.00},
+ {key:"B5",name:"HIGH B",freq:987.77},
+ {key:"C#6",name:"HIGH C#",freq:1108.73}
+];
+
+let melody=[];
+let history=[];
+let redoStack=[];
+let currentIndex=-1;
+let timer=null;
+let speed=1500;
+let audioContext=null;
+
+
+/* =========================================================
+   AUDIO
+   ========================================================= */
+
+function playFrequency(freq){
+
+  if(!audioContext){
+    audioContext=new(window.AudioContext||window.webkitAudioContext)();
+  }
+
+  const osc=audioContext.createOscillator();
+  const gain=audioContext.createGain();
+
+  osc.type="triangle";
+  osc.frequency.value=freq;
+
+  gain.gain.setValueAtTime(0.0001,audioContext.currentTime);
+  gain.gain.exponentialRampToValueAtTime(.28,audioContext.currentTime+.02);
+  gain.gain.exponentialRampToValueAtTime(.0001,audioContext.currentTime+.65);
+
+  osc.connect(gain);
+  gain.connect(audioContext.destination);
+
+  osc.start();
+  osc.stop(audioContext.currentTime+.7);
+}
+
+
+/* =========================================================
+   PIANO
+   ========================================================= */
+
+const piano=document.getElementById("piano");
+
+const pianoNotes=[
+ ["D4",293.66],
+ ["E4",329.63],
+ ["F#4",369.99],
+ ["G4",392],
+ ["A4",440],
+ ["B4",493.88],
+ ["C#5",554.37],
+ ["D5",587.33],
+ ["E5",659.25],
+ ["F#5",739.99],
+ ["G5",783.99],
+ ["A5",880],
+ ["B5",987.77],
+ ["C#6",1108.73]
+];
+
+function buildPiano(){
+
+ piano.innerHTML="";
+
+ pianoNotes.forEach((n,i)=>{
+
+   const key=document.createElement("button");
+
+   key.className="white";
+   key.dataset.note=n[0];
+   key.innerHTML="<span>"+WHISTLE[n[0]].name+"</span>";
+
+   key.onclick=()=>addNote(n[0]);
+
+   piano.appendChild(key);
+ });
+
+}
+
+buildPiano();
+
+
+function highlightPiano(note){
+
+ document.querySelectorAll(".white").forEach(k=>{
+   k.classList.toggle("active",k.dataset.note===note);
+ });
+
+}
+
+
+/* =========================================================
+   MELODY
+   ========================================================= */
+
+function saveHistory(){
+
+ history.push(JSON.stringify(melody));
+
+ if(history.length>30) history.shift();
+
+ redoStack=[];
+}
+
+function addNote(note){
+
+ saveHistory();
+
+ melody.push({
+   pitch:note,
+   duration:"quarter"
+ });
+
+ const data=WHISTLE[note];
+
+ playFrequency(
+   NOTES.find(n=>n.key===note).freq
+ );
+
+ currentIndex=melody.length-1;
+
+ renderSequence();
+ showNote(note);
+ renderStaff();
+}
+
+function deleteLast(){
+
+ if(!melody.length)return;
+
+ saveHistory();
+
+ melody.pop();
+
+ currentIndex=Math.min(currentIndex,melody.length-1);
+
+ renderSequence();
+ renderStaff();
+
+ if(melody.length){
+   showNote(melody[currentIndex].pitch);
+ }else{
+   showNote(null);
+ }
+}
+
+function clearMelody(){
+
+ if(!melody.length)return;
+
+ saveHistory();
+
+ melody=[];
+
+ currentIndex=-1;
+
+ renderSequence();
+ renderStaff();
+ showNote(null);
+}
+
+function undo(){
+
+ if(!history.length)return;
+
+ redoStack.push(JSON.stringify(melody));
+
+ melody=JSON.parse(history.pop());
+
+ currentIndex=melody.length-1;
+
+ renderSequence();
+ renderStaff();
+
+ if(melody.length)showNote(melody[currentIndex].pitch);
+}
+
+function redo(){
+
+ if(!redoStack.length)return;
+
+ history.push(JSON.stringify(melody));
+
+ melody=JSON.parse(redoStack.pop());
+
+ currentIndex=melody.length-1;
+
+ renderSequence();
+ renderStaff();
+
+ if(melody.length)showNote(melody[currentIndex].pitch);
+}
+
+
+/* =========================================================
+   SEQUENCE DISPLAY
+   ========================================================= */
+
+function renderSequence(){
+
+ const el=document.getElementById("sequence");
+
+ if(!melody.length){
+   el.innerHTML='<span class="small">Enter notes using the piano below.</span>';
+   return;
+ }
+
+ el.innerHTML="";
+
+ melody.forEach((n,i)=>{
+
+   const d=document.createElement("div");
+
+   d.className="seq-note"+(i===currentIndex?" current":"");
+
+   d.textContent=WHISTLE[n.pitch].name;
+
+   d.onclick=()=>{
+     currentIndex=i;
+     showNote(n.pitch);
+     renderSequence();
+   };
+
+   el.appendChild(d);
+ });
+}
+
+
+/* =========================================================
+   NOTE LESSON
+   ========================================================= */
+
+function showNote(note){
+
+ const name=document.getElementById("currentNote");
+ const number=document.getElementById("currentNumber");
+ const fingering=document.getElementById("fingering");
+
+ if(!note){
+
+   name.textContent="—";
+   number.textContent="—";
+   fingering.innerHTML="";
+   document.getElementById("playNow").textContent="READY";
+   return;
+ }
+
+ const data=WHISTLE[note];
+
+ name.textContent=data.name;
+ number.textContent=data.number;
+
+ fingering.innerHTML="";
+
+ data.holes.forEach((covered,i)=>{
+
+   const hole=document.createElement("div");
+
+   hole.className="hole"+(covered?" covered":"");
+
+   hole.setAttribute(
+     "aria-label",
+     covered?"Hole "+(i+1)+" covered":"Hole "+(i+1)+" open"
+   );
+
+   fingering.appendChild(hole);
+ });
+
+ highlightPiano(note);
+
+ document.getElementById("playNow").textContent="PLAY NOW";
+}
+
+
+/* =========================================================
+   TEACH ME
+   ========================================================= */
+
+function teachMe(){
+
+ if(!melody.length){
+   document.getElementById("status").textContent=
+     "Enter some notes first.";
+   return;
+ }
+
+ clearInterval(timer);
+
+ currentIndex=0;
+
+ teachCurrent();
+}
+
+function teachCurrent(){
+
+ if(currentIndex<0||currentIndex>=melody.length)return;
+
+ const note=melody[currentIndex].pitch;
+
+ showNote(note);
+ renderSequence();
+
+ const data=NOTES.find(n=>n.key===note);
+
+ playFrequency(data.freq);
+
+ document.getElementById("status").textContent=
+   "Note "+(currentIndex+1)+" of "+melody.length+
+   " — "+WHISTLE[note].name+
+   " — "+WHISTLE[note].number;
+
+ clearInterval(timer);
+
+ timer=setTimeout(()=>{
+
+   currentIndex++;
+
+   if(currentIndex>=melody.length){
+
+     if(document.getElementById("loop").checked){
+       currentIndex=0;
+       teachCurrent();
+     }else{
+       currentIndex=melody.length-1;
+       renderSequence();
+       document.getElementById("status").textContent=
+         "Lesson complete. Press TEACH ME to start again.";
+     }
+
+     return;
+   }
+
+   teachCurrent();
+
+ },speed);
+}
+
+function pauseTeach(){
+
+ clearInterval(timer);
+
+ document.getElementById("status").textContent="Paused.";
+}
+
+function restartTeach(){
+
+ clearInterval(timer);
+
+ if(!melody.length)return;
+
+ currentIndex=0;
+
+ teachCurrent();
+}
+
+function previousNote(){
+
+ clearInterval(timer);
+
+ if(!melody.length)return;
+
+ currentIndex=Math.max(0,currentIndex-1);
+
+ showNote(melody[currentIndex].pitch);
+ renderSequence();
+
+ document.getElementById("status").textContent=
+   "Note "+(currentIndex+1)+" of "+melody.length;
+}
+
+function nextNote(){
+
+ clearInterval(timer);
+
+ if(!melody.length)return;
+
+ currentIndex=Math.min(
+   melody.length-1,
+   currentIndex+1
+ );
+
+ showNote(melody[currentIndex].pitch);
+ renderSequence();
+
+ document.getElementById("status").textContent=
+   "Note "+(currentIndex+1)+" of "+melody.length;
+}
+
+function setSpeed(value,button){
+
+ speed=value;
+
+ document.querySelectorAll(".speed").forEach(b=>{
+   b.classList.remove("active");
+ });
+
+ button.classList.add("active");
+}
+
+
+/* =========================================================
+   STAFF
+   Simple SVG treble staff.
+   Designed to remain dependency-free for GitHub Pages.
+   ========================================================= */
+
+function renderStaff(){
+
+ const container=document.getElementById("staff");
+
+ container.innerHTML="";
+
+ if(!melody.length){
+
+   container.innerHTML=
+   '<p class="small">Your musical notation will appear here.</p>';
+
+   return;
+ }
+
+ const width=Math.max(700,melody.length*70+180);
+ const height=180;
+
+ const svg=document.createElementNS(
+   "http://www.w3.org/2000/svg",
+   "svg"
+ );
+
+ svg.setAttribute("width",width);
+ svg.setAttribute("height",height);
+ svg.setAttribute("viewBox","0 0 "+width+" "+height);
+
+ // staff lines
+ for(let i=0;i<5;i++){
+
+   const line=document.createElementNS(
+     "http://www.w3.org/2000/svg",
+     "line"
+   );
+
+   line.setAttribute("x1",30);
+   line.setAttribute("x2",width-20);
+   line.setAttribute("y1",45+i*20);
+   line.setAttribute("y2",45+i*20);
+   line.setAttribute("stroke","#111827");
+   line.setAttribute("stroke-width","2");
+
+   svg.appendChild(line);
+ }
+
+ // clef
+ const clef=document.createElementNS(
+   "http://www.w3.org/2000/svg",
+   "text"
+ );
+
+ clef.setAttribute("x",38);
+ clef.setAttribute("y",110);
+ clef.setAttribute("font-size","75");
+ clef.textContent="𝄞";
+
+ svg.appendChild(clef);
+
+ // key/time
+ const info=document.createElementNS(
+   "http://www.w3.org/2000/svg",
+   "text"
+ );
+
+ info.setAttribute("x",95);
+ info.setAttribute("y",42);
+ info.setAttribute("font-size","20");
+ info.setAttribute("font-weight","bold");
+
+ info.textContent=
+   document.getElementById("key").value+
+   "   "+
+   document.getElementById("time").value;
+
+ svg.appendChild(info);
+
+ melody.forEach((n,i)=>{
+
+   const x=155+i*65;
+   const y=getStaffY(n.pitch);
+
+   const note=document.createElementNS(
+     "http://www.w3.org/2000/svg",
+     "ellipse"
+   );
+
+   note.setAttribute("cx",x);
+   note.setAttribute("cy",y);
+   note.setAttribute("rx",10);
+   note.setAttribute("ry",7);
+
+   note.setAttribute(
+     "fill",
+     i===currentIndex?"#2563eb":"#111827"
+   );
+
+   svg.appendChild(note);
+
+   const stem=document.createElementNS(
+     "http://www.w3.org/2000/svg",
+     "line"
+   );
+
+   stem.setAttribute("x1",x+9);
+   stem.setAttribute("x2",x+9);
+   stem.setAttribute("y1",y);
+   stem.setAttribute("y2",y-45);
+   stem.setAttribute("stroke","#111827");
+   stem.setAttribute("stroke-width","3");
+
+   svg.appendChild(stem);
+
+   const label=document.createElementNS(
+     "http://www.w3.org/2000/svg",
+     "text"
+   );
+
+   label.setAttribute("x",x-15);
+   label.setAttribute("y",155);
+   label.setAttribute("font-size","13");
+   label.textContent=WHISTLE[n.pitch].name;
+
+   svg.appendChild(label);
+ });
+
+ container.appendChild(svg);
+}
+
+function getStaffY(note){
+
+ const positions={
+   "D4":125,
+   "E4":115,
+   "F#4":105,
+   "G4":95,
+   "A4":85,
+   "B4":75,
+   "C#5":65,
+   "D5":55,
+   "E5":45,
+   "F#5":35,
+   "G5":25,
+   "A5":15,
+   "B5":5,
+   "C#6":-5
+ };
+
+ return positions[note]||85;
+}
+
+
+/* =========================================================
+   UPDATE STAFF WHEN SONG SETTINGS CHANGE
+   ========================================================= */
+
+document.getElementById("key").addEventListener(
+ "change",
+ renderStaff
+);
+
+document.getElementById("time").addEventListener(
+ "change",
+ renderStaff
+);
+
+
+/* =========================================================
+   KEYBOARD SUPPORT
+   ========================================================= */
+
+document.addEventListener("keydown",e=>{
+
+ if(e.code==="Space"){
+
+   e.preventDefault();
+
+   if(melody.length)teachMe();
+ }
+
+});
+
+
+/* =========================================================
+   STARTUP
+   ========================================================= */
+
+renderSequence();
+renderStaff();
+showNote(null);
+
+</script>
+
+</body>
+</html>
