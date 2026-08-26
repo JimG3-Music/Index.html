@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#111827">
@@ -10,6 +11,10 @@
 <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
 
 <style>
+
+/* =========================================================
+   GLOBAL
+   ========================================================= */
 
 * {
     box-sizing: border-box;
@@ -297,6 +302,9 @@ select {
     overflow: hidden;
 }
 
+
+/* WHITE KEY LAYER */
+
 .piano-white-layer {
     position: absolute;
     left: 0;
@@ -309,6 +317,9 @@ select {
 
     z-index: 1;
 }
+
+
+/* WHITE KEYS */
 
 .piano-white-key {
     position: relative;
@@ -369,6 +380,9 @@ select {
     pointer-events: none;
 }
 
+
+/* BLACK KEY LAYER */
+
 .piano-black-layer {
     position: absolute;
 
@@ -382,6 +396,9 @@ select {
 
     pointer-events: none;
 }
+
+
+/* BLACK KEYS */
 
 .piano-black-key {
     position: absolute;
@@ -545,9 +562,9 @@ select {
 .preview-notes {
     display: grid;
 
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(4, 1fr);
 
-    gap: 8px;
+    gap: 10px;
 
     margin-top: 20px;
 }
@@ -559,18 +576,18 @@ select {
 
     border-radius: 10px;
 
-    padding: 7px;
+    padding: 8px;
 
     break-inside: avoid;
 }
 
 .preview-note .name {
-    font-size: 1rem;
+    font-size: 1.3rem;
     font-weight: 900;
 }
 
 .preview-note .number {
-    font-size: 1rem;
+    font-size: 1.3rem;
 
     color: #2563eb;
 
@@ -584,16 +601,16 @@ select {
 
     align-items: center;
 
-    gap: 2px;
+    gap: 3px;
 
-    margin-top: 5px;
+    margin-top: 6px;
 }
 
 .preview-hole {
-    width: 14px;
-    height: 14px;
+    width: 18px;
+    height: 18px;
 
-    border: 1.5px solid #111827;
+    border: 2px solid #111827;
 
     border-radius: 50%;
 }
@@ -622,7 +639,7 @@ select {
     }
 
     .preview-notes {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
     }
 
 }
@@ -688,10 +705,6 @@ select {
         padding: 10mm;
     }
 
-    .preview-notes {
-        grid-template-columns: repeat(7, 1fr);
-    }
-
 }
 
 </style>
@@ -699,6 +712,7 @@ select {
 
 
 <body>
+
 
 <header>
 
@@ -711,6 +725,10 @@ select {
 
 <main>
 
+
+<!-- =====================================================
+     SONG INFORMATION
+     ===================================================== -->
 
 <section class="card">
 
@@ -790,6 +808,10 @@ select {
 </section>
 
 
+<!-- =====================================================
+     MELODY
+     ===================================================== -->
+
 <section class="card">
 
     <h2>Melody</h2>
@@ -799,6 +821,7 @@ select {
         class="sequence"
         aria-live="polite"
     ></div>
+
 
     <div class="controls">
 
@@ -833,6 +856,10 @@ select {
 </section>
 
 
+<!-- =====================================================
+     STAFF
+     ===================================================== -->
+
 <section class="card">
 
     <h2>Musical Staff</h2>
@@ -849,9 +876,14 @@ select {
 </section>
 
 
+<!-- =====================================================
+     TEACH ME
+     ===================================================== -->
+
 <section class="card">
 
     <div class="lesson">
+
 
         <div class="current-note">
 
@@ -877,10 +909,12 @@ select {
                 ML6CMG.T.W TEACHING NUMBER
             </div>
 
+
             <div
                 id="fingering"
                 class="whistle"
             ></div>
+
 
             <strong id="playNow">
                 READY
@@ -898,6 +932,7 @@ select {
                 Learn the number → See the fingering →
                 Play the note → Repeat
             </p>
+
 
             <div class="controls">
 
@@ -980,6 +1015,10 @@ select {
 </section>
 
 
+<!-- =====================================================
+     SAVE / PREVIEW
+     ===================================================== -->
+
 <section class="card">
 
     <h2>Save & Lesson Sheet</h2>
@@ -988,6 +1027,7 @@ select {
         Save your song, preview a printable teaching sheet,
         copy the lesson or save it as a PDF.
     </p>
+
 
     <div class="action-grid">
 
@@ -998,27 +1038,33 @@ select {
             💾 Save Song
         </button>
 
+
         <button onclick="loadSong()">
             📂 Load Song
         </button>
+
 
         <button onclick="previewLesson()">
             👁 Preview Lesson
         </button>
 
+
         <button onclick="copyLesson()">
             📋 Copy Lesson
         </button>
 
+
         <button onclick="printLesson()">
             🖨 Print / Save PDF
         </button>
+
 
         <button onclick="downloadSong()">
             ⬇ Download Song
         </button>
 
     </div>
+
 
     <div
         id="saveStatus"
@@ -1030,14 +1076,19 @@ select {
 </section>
 
 
+<!-- =====================================================
+     PIANO
+     ===================================================== -->
+
 <section class="card">
 
     <h2>Piano</h2>
 
     <p class="small">
-        Tap a piano key to hear it and add the note
-        to your melody.
+        Tap a piano key to hear it and add supported
+        whistle notes to your melody.
     </p>
+
 
     <div class="piano-wrap">
 
@@ -1065,6 +1116,10 @@ select {
 
 </footer>
 
+
+<!-- =====================================================
+     PREVIEW
+     ===================================================== -->
 
 <div
     id="previewOverlay"
@@ -1101,9 +1156,8 @@ select {
 
 <script>
 
-
 /* =========================================================
-   WHISTLE DATABASE
+   WHISTLE TEACHING DATABASE
    ========================================================= */
 
 const WHISTLE = {
@@ -1150,20 +1204,10 @@ const WHISTLE = {
         holes: [false,false,false,false,false,false]
     },
 
-
-    /*
-       YOUR HIGH D
-
-       Top hole OPEN
-       Remaining five COVERED
-
-       ○ ● ● ● ● ●
-    */
-
     "D5": {
         name: "HIGH D",
         number: "6^",
-        holes: [false,true,true,true,true,true]
+        holes: [true,true,true,true,true,true]
     },
 
     "E5": {
@@ -1206,7 +1250,7 @@ const WHISTLE = {
 
 
 /* =========================================================
-   MUSICAL NOTES
+   MUSICAL NOTE DATABASE
    ========================================================= */
 
 const NOTES = {
@@ -1299,7 +1343,7 @@ const NOTES = {
 
 
 /* =========================================================
-   PIANO FREQUENCIES
+   PIANO DATABASE
    ========================================================= */
 
 const PIANO_FREQUENCIES = {
@@ -1385,7 +1429,7 @@ const PIANO_DISPLAY_NAMES = {
 
 
 /* =========================================================
-   STATE
+   APPLICATION STATE
    ========================================================= */
 
 let melody = [];
@@ -1450,7 +1494,9 @@ function playFrequency(freq) {
 
     oscillator.connect(gain);
 
-    gain.connect(audioContext.destination);
+    gain.connect(
+        audioContext.destination
+    );
 
     oscillator.start();
 
@@ -1502,6 +1548,10 @@ function addNote(note) {
 
     currentIndex =
         melody.length - 1;
+
+    playFrequency(
+        NOTES[note].freq
+    );
 
     renderSequence();
 
@@ -1592,7 +1642,7 @@ function buildPiano() {
 
 
     whiteKeys.forEach(
-        (item,index) => {
+        item => {
 
             const key =
                 document.createElement("button");
@@ -1637,6 +1687,12 @@ function buildPiano() {
         }
     );
 
+
+    /*
+     * Black keys are positioned relative
+     * to the WHITE key immediately to
+     * their left.
+     */
 
     const blackPositions = {
 
@@ -1722,33 +1778,35 @@ function buildPiano() {
         );
 
 
-    piano.appendChild(whiteLayer);
+    piano.appendChild(
+        whiteLayer
+    );
 
-    piano.appendChild(blackLayer);
+    piano.appendChild(
+        blackLayer
+    );
 
 }
 
 
-function pressPianoKey(note, element) {
+function pressPianoKey(
+    note,
+    element
+) {
 
     /*
-       Play the piano sound once.
-    */
+     * Play the piano note once.
+     */
 
-    if (PIANO_FREQUENCIES[note]) {
-
-        playFrequency(
-            PIANO_FREQUENCIES[note]
-        );
-
-    }
+    playFrequency(
+        PIANO_FREQUENCIES[note]
+    );
 
 
     /*
-       IMPORTANT:
-       If this piano note exists in the
-       whistle database, record it.
-    */
+     * Add the note to the whistle
+     * melody if it exists in NOTES.
+     */
 
     if (NOTES[note]) {
 
@@ -1757,13 +1815,17 @@ function pressPianoKey(note, element) {
     }
 
 
-    element.classList.add("pressed");
+    element.classList.add(
+        "pressed"
+    );
 
 
     setTimeout(
         () => {
 
-            element.classList.remove("pressed");
+            element.classList.remove(
+                "pressed"
+            );
 
         },
         160
@@ -1923,19 +1985,25 @@ function redo() {
             melody[currentIndex].pitch
         );
 
+    } else {
+
+        showNote(null);
+
     }
 
 }
 
 
 /* =========================================================
-   SEQUENCE
+   SEQUENCE DISPLAY
    ========================================================= */
 
 function renderSequence() {
 
     const element =
-        document.getElementById("sequence");
+        document.getElementById(
+            "sequence"
+        );
 
 
     if (!melody.length) {
@@ -1968,21 +2036,20 @@ function renderSequence() {
                 );
 
             div.textContent =
-                WHISTLE[item.pitch].name;
-
-
-            div.title =
-                "Note " +
-                (index + 1) +
-                ": " +
-                WHISTLE[item.pitch].name;
+                WHISTLE[
+                    item.pitch
+                ]
+                ? WHISTLE[item.pitch].name
+                : item.pitch;
 
 
             div.onclick = () => {
 
                 currentIndex = index;
 
-                showNote(item.pitch);
+                showNote(
+                    item.pitch
+                );
 
                 renderSequence();
 
@@ -2086,7 +2153,9 @@ function showNote(note) {
             );
 
 
-            fingering.appendChild(hole);
+            fingering.appendChild(
+                hole
+            );
 
         }
     );
@@ -2104,13 +2173,151 @@ function showNote(note) {
 
 
 /* =========================================================
-   STAFF
+   TIME SIGNATURE HELPERS
+   ========================================================= */
+
+function getTimeNumerator(time) {
+
+    return Number(
+        time.split("/")[0]
+    );
+
+}
+
+
+function getTimeDenominator(time) {
+
+    return Number(
+        time.split("/")[1]
+    );
+
+}
+
+
+/*
+ * Number of quarter-note slots we put into
+ * each visible bar.
+ *
+ * Because every recorded note is currently
+ * a quarter note, this keeps the notation
+ * predictable and readable.
+ */
+
+function getNotesPerBar(time) {
+
+    const numerator =
+        getTimeNumerator(time);
+
+    const denominator =
+        getTimeDenominator(time);
+
+
+    if (denominator === 8) {
+
+        /*
+         * For 6/8 we show six recorded
+         * quarter-note positions per
+         * displayed bar. VexFlow is kept
+         * in soft mode so it can draw them.
+         */
+
+        return numerator;
+
+    }
+
+
+    return numerator;
+
+}
+
+
+/* =========================================================
+   VEXFLOW KEY
+   ========================================================= */
+
+function getVexKey(key) {
+
+    const map = {
+
+        "D": "D",
+        "G": "G",
+        "C": "C",
+        "A": "A",
+        "E": "E"
+
+    };
+
+    return map[key] || "D";
+
+}
+
+
+/* =========================================================
+   VEXFLOW NOTE CREATOR
+   ========================================================= */
+
+function createVexNote(item) {
+
+    const VF =
+        Vex.Flow;
+
+
+    const info =
+        NOTES[item.pitch];
+
+
+    if (!info) {
+        return null;
+    }
+
+
+    const note =
+        new VF.StaveNote({
+
+            clef: "treble",
+
+            keys: [
+                info.vex
+            ],
+
+            duration:
+                item.duration || "q"
+
+        });
+
+
+    /*
+     * VexFlow needs the accidental
+     * attached separately.
+     */
+
+    if (
+        item.pitch.includes("#")
+    ) {
+
+        note.addModifier(
+            new VF.Accidental("#"),
+            0
+        );
+
+    }
+
+
+    return note;
+
+}
+
+
+/* =========================================================
+   VEXFLOW STAFF — FIXED
    ========================================================= */
 
 function renderStaff() {
 
     const container =
-        document.getElementById("staff");
+        document.getElementById(
+            "staff"
+        );
 
 
     container.innerHTML = "";
@@ -2128,7 +2335,10 @@ function renderStaff() {
     }
 
 
-    if (!window.Vex) {
+    if (
+        !window.Vex ||
+        !Vex.Flow
+    ) {
 
         container.innerHTML =
             `<p>
@@ -2146,47 +2356,45 @@ function renderStaff() {
             Vex.Flow;
 
 
-        /*
-           Split the melody into measures.
-
-           This prevents VexFlow from breaking when
-           there are more notes than fit in one bar.
-        */
-
         const time =
-            document.getElementById("time").value;
-
-        const beats =
-            getBeats(time);
-
-
-        const measures = [];
+            document.getElementById(
+                "time"
+            ).value;
 
 
-        for (
-            let i = 0;
-            i < melody.length;
-            i += beats
-        ) {
+        const notesPerBar =
+            getNotesPerBar(time);
 
-            measures.push(
-                melody.slice(
-                    i,
-                    i + beats
-                )
+
+        const barCount =
+            Math.ceil(
+                melody.length /
+                notesPerBar
             );
 
-        }
 
+        /*
+         * Each bar gets its own width.
+         */
 
-        const measureWidth = 220;
+        const staveWidth = 330;
+
 
         const width =
             Math.max(
-                800,
-                measures.length *
-                measureWidth +
+                850,
+                barCount *
+                staveWidth +
                 40
+            );
+
+
+        const height =
+            Math.max(
+                230,
+                barCount *
+                130 +
+                80
             );
 
 
@@ -2199,7 +2407,7 @@ function renderStaff() {
 
         renderer.resize(
             width,
-            230
+            height
         );
 
 
@@ -2207,89 +2415,116 @@ function renderStaff() {
             renderer.getContext();
 
 
-        measures.forEach(
-            (measure, measureIndex) => {
+        /*
+         * Render every bar separately.
+         *
+         * This is the important fix:
+         * we no longer try to force the
+         * entire melody into one VexFlow
+         * voice.
+         */
 
-                const x =
-                    20 +
-                    measureIndex *
-                    measureWidth;
+        for (
+            let bar = 0;
+            bar < barCount;
+            bar++
+        ) {
+
+            const start =
+                bar *
+                notesPerBar;
 
 
-                const stave =
-                    new VF.Stave(
-                        x,
-                        45,
-                        measureWidth - 15
-                    );
+            const end =
+                Math.min(
+                    start +
+                    notesPerBar,
+                    melody.length
+                );
 
 
-                if (measureIndex === 0) {
+            const barMelody =
+                melody.slice(
+                    start,
+                    end
+                );
 
-                    stave
-                        .addClef("treble")
-                        .addKeySignature(
-                            getVexKey(
-                                document.getElementById(
-                                    "key"
-                                ).value
-                            )
-                        )
-                        .addTimeSignature(
-                            time
-                        );
 
-                }
+            const y =
+                35 +
+                bar * 130;
 
+
+            const stave =
+                new VF.Stave(
+                    20,
+                    y,
+                    staveWidth
+                );
+
+
+            /*
+             * Only the first bar receives
+             * the clef, key and time signature.
+             */
+
+            if (bar === 0) {
 
                 stave
-                    .setContext(context)
-                    .draw();
+                    .addClef("treble")
+                    .addKeySignature(
+                        getVexKey(
+                            document.getElementById(
+                                "key"
+                            ).value
+                        )
+                    )
+                    .addTimeSignature(
+                        time
+                    );
+
+            }
 
 
-                const notes =
-                    measure.map(
-                        (item) => {
+            stave
+                .setContext(context)
+                .draw();
 
-                            const info =
-                                NOTES[item.pitch];
 
+            /*
+             * Turn each recorded melody note
+             * into a VexFlow note.
+             */
+
+            const vexNotes =
+                barMelody
+                    .map(
+                        (
+                            item,
+                            localIndex
+                        ) => {
 
                             const note =
-                                new VF.StaveNote({
-
-                                    clef:
-                                        "treble",
-
-                                    keys: [
-                                        info.vex
-                                    ],
-
-                                    duration:
-                                        item.duration ||
-                                        "q"
-
-                                });
-
-
-                            if (
-                                item.pitch
-                                    .includes("#")
-                            ) {
-
-                                note.addAccidental(
-                                    0,
-                                    new VF.Accidental("#")
+                                createVexNote(
+                                    item
                                 );
 
+
+                            if (!note) {
+                                return null;
                             }
 
 
                             const globalIndex =
-                                measureIndex *
-                                beats +
-                                measure.indexOf(item);
+                                start +
+                                localIndex;
 
+
+                            /*
+                             * Highlight the
+                             * currently selected
+                             * note.
+                             */
 
                             if (
                                 globalIndex ===
@@ -2312,53 +2547,83 @@ function renderStaff() {
                             return note;
 
                         }
-                    );
+                    )
+                    .filter(Boolean);
 
 
-                const voice =
-                    new VF.Voice({
-
-                        num_beats:
-                            measure.length,
-
-                        beat_value:
-                            getBeatValue(time)
-
-                    });
-
-
-                voice.setMode(
-                    VF.Voice.Mode.SOFT
-                );
-
-
-                voice.addTickables(
-                    notes
-                );
-
-
-                new VF.Formatter()
-                    .joinVoices([
-                        voice
-                    ])
-                    .format(
-                        [voice],
-                        measureWidth - 85
-                    );
-
-
-                voice.draw(
-                    context,
-                    stave
-                );
-
+            if (!vexNotes.length) {
+                continue;
             }
-        );
+
+
+            /*
+             * IMPORTANT:
+             *
+             * The voice now matches the
+             * number of actual notes in
+             * this particular bar.
+             *
+             * This prevents VexFlow from
+             * rejecting an incomplete final
+             * bar.
+             */
+
+            const voice =
+                new VF.Voice({
+
+                    num_beats:
+                        vexNotes.length,
+
+                    beat_value: 4
+
+                });
+
+
+            voice.setMode(
+                VF.Voice.Mode.SOFT
+            );
+
+
+            voice.addTickables(
+                vexNotes
+            );
+
+
+            /*
+             * Leave enough room for the
+             * clef/time/key symbols.
+             */
+
+            new VF.Formatter()
+                .joinVoices([
+                    voice
+                ])
+                .format(
+                    [voice],
+                    staveWidth -
+                    (
+                        bar === 0
+                            ? 105
+                            : 30
+                    )
+                );
+
+
+            voice.draw(
+                context,
+                stave
+            );
+
+        }
 
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "VexFlow staff error:",
+            error
+        );
+
 
         container.innerHTML =
             `<p class="small">
@@ -2366,39 +2631,6 @@ function renderStaff() {
             </p>`;
 
     }
-
-}
-
-
-function getVexKey(key) {
-
-    return {
-
-        "D": "D",
-        "G": "G",
-        "C": "C",
-        "A": "A",
-        "E": "E"
-
-    }[key] || "D";
-
-}
-
-
-function getBeats(time) {
-
-    return Number(
-        time.split("/")[0]
-    );
-
-}
-
-
-function getBeatValue(time) {
-
-    return Number(
-        time.split("/")[1]
-    );
 
 }
 
@@ -2446,9 +2678,13 @@ function playSequence() {
     renderStaff();
 
 
-    playFrequency(
-        NOTES[item.pitch].freq
-    );
+    if (NOTES[item.pitch]) {
+
+        playFrequency(
+            NOTES[item.pitch].freq
+        );
+
+    }
 
 
     timer =
@@ -2479,6 +2715,8 @@ function playSequence() {
                             melody.length - 1;
 
                         renderSequence();
+
+                        renderStaff();
 
                     }
 
@@ -2544,9 +2782,13 @@ function teachCurrent() {
     renderStaff();
 
 
-    playFrequency(
-        NOTES[note].freq
-    );
+    if (NOTES[note]) {
+
+        playFrequency(
+            NOTES[note].freq
+        );
+
+    }
 
 
     document.getElementById(
@@ -2593,6 +2835,8 @@ function teachCurrent() {
                             melody.length - 1;
 
                         renderSequence();
+
+                        renderStaff();
 
                         document.getElementById(
                             "status"
@@ -2694,7 +2938,10 @@ function nextNote() {
 }
 
 
-function setSpeed(value, button) {
+function setSpeed(
+    value,
+    button
+) {
 
     speed = value;
 
@@ -2709,20 +2956,22 @@ function setSpeed(value, button) {
         );
 
 
-    button.classList.add("active");
+    button.classList.add(
+        "active"
+    );
 
 }
 
 
 /* =========================================================
-   SONG OBJECT
+   SAVE SONG
    ========================================================= */
 
-function getSongObject() {
+function saveSong() {
 
-    return {
+    const song = {
 
-        version: 2,
+        version: 1,
 
         songName:
             document.getElementById(
@@ -2744,24 +2993,9 @@ function getSongObject() {
                 "whistle"
             ).value,
 
-        melody:
-            JSON.parse(
-                JSON.stringify(melody)
-            )
+        melody: melody
 
     };
-
-}
-
-
-/* =========================================================
-   SAVE SONG
-   ========================================================= */
-
-function saveSong() {
-
-    const song =
-        getSongObject();
 
 
     localStorage.setItem(
@@ -2844,6 +3078,11 @@ function loadSong() {
                 : -1;
 
 
+        history = [];
+
+        redoStack = [];
+
+
         renderSequence();
 
         renderStaff();
@@ -2867,6 +3106,7 @@ function loadSong() {
         ).textContent =
             "✓ Saved song loaded.";
 
+
     } catch (error) {
 
         console.error(error);
@@ -2882,13 +3122,38 @@ function loadSong() {
 
 
 /* =========================================================
-   DOWNLOAD SONG
+   DOWNLOAD SONG FILE
    ========================================================= */
 
 function downloadSong() {
 
-    const song =
-        getSongObject();
+    const song = {
+
+        version: 1,
+
+        songName:
+            document.getElementById(
+                "songName"
+            ).value,
+
+        key:
+            document.getElementById(
+                "key"
+            ).value,
+
+        time:
+            document.getElementById(
+                "time"
+            ).value,
+
+        whistle:
+            document.getElementById(
+                "whistle"
+            ).value,
+
+        melody: melody
+
+    };
 
 
     const blob =
@@ -2944,7 +3209,7 @@ function downloadSong() {
 
 
 /* =========================================================
-   PREVIEW
+   PREVIEW LESSON
    ========================================================= */
 
 function previewLesson() {
@@ -2968,14 +3233,14 @@ function previewLesson() {
 
     setTimeout(
         renderPreviewStaff,
-        100
+        150
     );
 
 }
 
 
 /* =========================================================
-   LESSON HTML
+   BUILD LESSON HTML
    ========================================================= */
 
 function buildLessonHTML() {
@@ -3056,7 +3321,10 @@ function buildLessonHTML() {
 
          <div
              id="previewStaff"
-             style="overflow-x:auto"
+             style="
+                 overflow-x:auto;
+                 width:100%;
+             "
          ></div>`;
 
 
@@ -3117,12 +3385,9 @@ function buildLessonHTML() {
 
                  <div
                     class="small"
-                    style="
-                        margin-top:4px;
-                        font-size:.65rem;
-                    "
+                    style="margin-top:5px"
                  >
-                    ● covered · ○ open
+                    ● covered &nbsp; ○ open
                  </div>
 
                 </div>`;
@@ -3140,7 +3405,7 @@ function buildLessonHTML() {
             style="
                 margin-top:25px;
                 text-align:center;
-                font-size:.8rem;
+                font-size:.85rem;
                 color:#64748b;
             "
         >
@@ -3157,7 +3422,7 @@ function buildLessonHTML() {
 
 
 /* =========================================================
-   PREVIEW STAFF
+   PREVIEW STAFF — FIXED
    ========================================================= */
 
 function renderPreviewStaff() {
@@ -3176,6 +3441,9 @@ function renderPreviewStaff() {
     }
 
 
+    container.innerHTML = "";
+
+
     try {
 
         const VF =
@@ -3188,38 +3456,36 @@ function renderPreviewStaff() {
             ).value;
 
 
-        const beats =
-            getBeats(time);
+        const notesPerBar =
+            getNotesPerBar(time);
 
 
-        const measures = [];
-
-
-        for (
-            let i = 0;
-            i < melody.length;
-            i += beats
-        ) {
-
-            measures.push(
-                melody.slice(
-                    i,
-                    i + beats
-                )
+        const barCount =
+            Math.ceil(
+                melody.length /
+                notesPerBar
             );
 
-        }
 
-
-        const measureWidth = 210;
+        const staveWidth =
+            300;
 
 
         const width =
             Math.max(
                 700,
-                measures.length *
-                measureWidth +
+                barCount *
+                staveWidth +
                 30
+            );
+
+
+        const height =
+            Math.max(
+                190,
+                barCount *
+                115 +
+                60
             );
 
 
@@ -3232,7 +3498,7 @@ function renderPreviewStaff() {
 
         renderer.resize(
             width,
-            210
+            height
         );
 
 
@@ -3240,131 +3506,125 @@ function renderPreviewStaff() {
             renderer.getContext();
 
 
-        measures.forEach(
-            (measure, measureIndex) => {
+        for (
+            let bar = 0;
+            bar < barCount;
+            bar++
+        ) {
 
-                const stave =
-                    new VF.Stave(
-                        15 +
-                        measureIndex *
-                        measureWidth,
-                        35,
-                        measureWidth - 10
-                    );
+            const start =
+                bar *
+                notesPerBar;
 
 
-                if (
-                    measureIndex === 0
-                ) {
+            const end =
+                Math.min(
+                    start +
+                    notesPerBar,
+                    melody.length
+                );
 
-                    stave
-                        .addClef("treble")
-                        .addKeySignature(
-                            getVexKey(
-                                document.getElementById(
-                                    "key"
-                                ).value
-                            )
-                        )
-                        .addTimeSignature(
-                            time
-                        );
 
-                }
+            const barMelody =
+                melody.slice(
+                    start,
+                    end
+                );
 
+
+            const stave =
+                new VF.Stave(
+                    15,
+                    25 +
+                    bar * 115,
+                    staveWidth
+                );
+
+
+            if (bar === 0) {
 
                 stave
-                    .setContext(context)
-                    .draw();
-
-
-                const notes =
-                    measure.map(
-                        item => {
-
-                            const info =
-                                NOTES[item.pitch];
-
-
-                            const note =
-                                new VF.StaveNote({
-
-                                    clef:
-                                        "treble",
-
-                                    keys:[
-                                        info.vex
-                                    ],
-
-                                    duration:
-                                        item.duration ||
-                                        "q"
-
-                                });
-
-
-                            if (
-                                item.pitch.includes("#")
-                            ) {
-
-                                note.addAccidental(
-                                    0,
-                                    new VF.Accidental("#")
-                                );
-
-                            }
-
-
-                            return note;
-
-                        }
+                    .addClef("treble")
+                    .addKeySignature(
+                        getVexKey(
+                            document.getElementById(
+                                "key"
+                            ).value
+                        )
+                    )
+                    .addTimeSignature(
+                        time
                     );
-
-
-                const voice =
-                    new VF.Voice({
-
-                        num_beats:
-                            measure.length,
-
-                        beat_value:
-                            getBeatValue(time)
-
-                    });
-
-
-                voice.setMode(
-                    VF.Voice.Mode.SOFT
-                );
-
-
-                voice.addTickables(
-                    notes
-                );
-
-
-                new VF.Formatter()
-                    .joinVoices([
-                        voice
-                    ])
-                    .format(
-                        [voice],
-                        measureWidth - 90
-                    );
-
-
-                voice.draw(
-                    context,
-                    stave
-                );
 
             }
-        );
+
+
+            stave
+                .setContext(context)
+                .draw();
+
+
+            const notes =
+                barMelody
+                    .map(
+                        item =>
+                            createVexNote(
+                                item
+                            )
+                    )
+                    .filter(Boolean);
+
+
+            if (!notes.length) {
+                continue;
+            }
+
+
+            const voice =
+                new VF.Voice({
+
+                    num_beats:
+                        notes.length,
+
+                    beat_value: 4
+
+                });
+
+
+            voice.setMode(
+                VF.Voice.Mode.SOFT
+            );
+
+
+            voice.addTickables(
+                notes
+            );
+
+
+            new VF.Formatter()
+                .joinVoices([
+                    voice
+                ])
+                .format(
+                    [voice],
+                    staveWidth - 85
+                );
+
+
+            voice.draw(
+                context,
+                stave
+            );
+
+        }
 
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Preview staff error:",
+            error
+        );
 
     }
 
@@ -3413,6 +3673,7 @@ async function copyLesson() {
     text +=
         song + "\n";
 
+
     text +=
         "Key: " +
         document.getElementById(
@@ -3420,12 +3681,14 @@ async function copyLesson() {
         ).value +
         "\n";
 
+
     text +=
         "Time: " +
         document.getElementById(
             "time"
         ).value +
         "\n";
+
 
     text +=
         "Whistle: " +
@@ -3443,9 +3706,9 @@ async function copyLesson() {
         melody
             .map(
                 item =>
-                    WHISTLE[
-                        item.pitch
-                    ].name
+                    WHISTLE[item.pitch]
+                        ? WHISTLE[item.pitch].name
+                        : item.pitch
             )
             .join("  ");
 
@@ -3461,9 +3724,9 @@ async function copyLesson() {
         melody
             .map(
                 item =>
-                    WHISTLE[
-                        item.pitch
-                    ].number
+                    WHISTLE[item.pitch]
+                        ? WHISTLE[item.pitch].number
+                        : ""
             )
             .join("  ");
 
@@ -3477,6 +3740,11 @@ async function copyLesson() {
 
             const data =
                 WHISTLE[item.pitch];
+
+
+            if (!data) {
+                return;
+            }
 
 
             text +=
@@ -3513,11 +3781,12 @@ async function copyLesson() {
         ).textContent =
             "✓ Lesson copied to clipboard.";
 
+
     } catch (error) {
 
         alert(
             "Copy was blocked by the browser. " +
-            "Use Preview Lesson and copy manually."
+            "Use Preview Lesson and copy the text manually."
         );
 
     }
@@ -3526,7 +3795,7 @@ async function copyLesson() {
 
 
 /* =========================================================
-   PRINT
+   PRINT / PDF
    ========================================================= */
 
 function printLesson() {
@@ -3548,8 +3817,9 @@ function printLesson() {
 
         setTimeout(
             () => window.print(),
-            500
+            600
         );
+
 
     } else {
 
@@ -3568,17 +3838,36 @@ function escapeHTML(value) {
 
     return String(value)
 
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
 
 /* =========================================================
-   SETTINGS
+   SETTINGS CHANGES
    ========================================================= */
 
 document
@@ -3598,7 +3887,7 @@ document
 
 
 /* =========================================================
-   KEYBOARD
+   KEYBOARD SHORTCUTS
    ========================================================= */
 
 document.addEventListener(
@@ -3608,6 +3897,7 @@ document.addEventListener(
         if (
             event.code === "Space" &&
             event.target.tagName !== "INPUT" &&
+            event.target.tagName !== "SELECT" &&
             event.target.tagName !== "TEXTAREA"
         ) {
 
@@ -3633,7 +3923,7 @@ document.addEventListener(
 
 
 /* =========================================================
-   START
+   STARTUP
    ========================================================= */
 
 renderSequence();
@@ -3643,13 +3933,24 @@ renderStaff();
 showNote(null);
 
 
+/*
+ * VexFlow is loaded externally.
+ * Render again after the page has loaded.
+ */
+
 window.addEventListener(
     "load",
     () => {
 
         setTimeout(
-            renderStaff,
-            300
+            () => {
+
+                buildPiano();
+
+                renderStaff();
+
+            },
+            500
         );
 
     }
