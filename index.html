@@ -11,9 +11,7 @@
 
 <style>
 
-*{
- box-sizing:border-box
-}
+*{box-sizing:border-box}
 
 html{
  scroll-behavior:smooth
@@ -104,8 +102,7 @@ label{
  font-weight:700
 }
 
-input,
-select{
+input,select{
  width:100%;
  margin-top:6px;
  padding:12px;
@@ -143,15 +140,20 @@ select{
  color:white
 }
 
-.red-note{
- background:#fee2e2!important;
- color:#991b1b!important;
- border:2px solid #dc2626
+.purple{
+ background:#7c3aed;
+ color:white
 }
 
-/* =========================================================
+.red-note{
+ color:#b91c1c;
+ border:2px solid #ef4444;
+ background:#fee2e2
+}
+
+/* =====================================================
    SEQUENCE
-   ========================================================= */
+===================================================== */
 
 .sequence{
  display:flex;
@@ -161,13 +163,12 @@ select{
 }
 
 .seq-note{
- min-width:60px;
+ min-width:54px;
  text-align:center;
  padding:9px;
  background:#e5e7eb;
  border-radius:10px;
- font-weight:800;
- position:relative
+ font-weight:800
 }
 
 .seq-note.current{
@@ -175,26 +176,19 @@ select{
  color:white
 }
 
-.seq-note.expert{
- background:#fee2e2;
- color:#991b1b;
- border:2px solid #dc2626
+.seq-breath{
+ background:#dbeafe;
+ color:#1e3a8a;
+ border:2px solid #60a5fa
 }
 
-.seq-note.grace{
- border:3px solid #7c3aed
+.seq-grace{
+ border:2px solid #7c3aed
 }
 
-.seq-duration{
- display:block;
- font-size:.68rem;
- opacity:.8;
- margin-top:3px
-}
-
-/* =========================================================
+/* =====================================================
    STAFF
-   ========================================================= */
+===================================================== */
 
 .staff-container{
  width:100%;
@@ -207,14 +201,14 @@ select{
 
 .staff-line{
  width:100%;
- margin-bottom:16px;
+ margin-bottom:15px;
  overflow-x:auto
 }
 
 .staff-svg{
  display:block;
- min-height:150px;
- width:100%
+ min-height:145px;
+ width:max-content
 }
 
 .staff-help{
@@ -224,89 +218,9 @@ select{
  margin-bottom:12px
 }
 
-/* =========================================================
-   DISPLAY MODE
-   ========================================================= */
-
-.view-buttons{
- display:flex;
- flex-wrap:wrap;
- gap:8px;
- margin-bottom:15px
-}
-
-.view-buttons button.active{
- background:#111827;
- color:white
-}
-
-.display-panel{
- width:100%;
- overflow-x:auto
-}
-
-/* =========================================================
-   COMBINED STAFF + FINGERINGS
-   ========================================================= */
-
-.combined-line{
- width:100%;
- overflow-x:auto;
- margin-bottom:25px;
- border-bottom:1px solid #cbd5e1;
- padding-bottom:15px
-}
-
-.combined-staff{
- width:100%;
- min-height:145px
-}
-
-.fingering-row{
- display:flex;
- align-items:flex-start;
- gap:0;
- min-width:850px;
- margin-left:70px;
- margin-right:20px
-}
-
-.fingering-cell{
- flex:1 1 0;
- min-width:65px;
- text-align:center;
- display:flex;
- flex-direction:column;
- align-items:center;
- justify-content:flex-start
-}
-
-.fingering-mini{
- display:flex;
- flex-direction:column;
- align-items:center;
- gap:2px
-}
-
-.fingering-mini .hole{
- width:18px;
- height:18px;
- border-width:2px
-}
-
-.fingering-mini .finger-note{
- font-size:.7rem;
- font-weight:800;
- margin-top:2px
-}
-
-.fingering-empty{
- height:20px
-}
-
-/* =========================================================
-   CURRENT NOTE
-   ========================================================= */
+/* =====================================================
+   LESSON
+===================================================== */
 
 .lesson{
  display:grid;
@@ -367,20 +281,9 @@ select{
  color:white
 }
 
-/* =========================================================
+/* =====================================================
    PIANO
-   ========================================================= */
-
-.piano-section{
- position:relative
-}
-
-.piano-lock{
- position:sticky;
- top:8px;
- z-index:50;
- float:right
-}
+===================================================== */
 
 .piano-wrap{
  width:100%;
@@ -439,6 +342,17 @@ select{
  transform:translateY(3px)
 }
 
+.piano-note-name{
+ position:absolute;
+ bottom:10px;
+ left:0;
+ width:100%;
+ text-align:center;
+ font-size:14px;
+ font-weight:800;
+ pointer-events:none
+}
+
 .piano-black-layer{
  position:absolute;
  left:0;
@@ -475,17 +389,6 @@ select{
  transform:translateY(3px)
 }
 
-.piano-note-name{
- position:absolute;
- bottom:10px;
- left:0;
- width:100%;
- text-align:center;
- font-size:13px;
- font-weight:800;
- pointer-events:none
-}
-
 .piano-black-key span{
  position:absolute;
  bottom:9px;
@@ -497,15 +400,37 @@ select{
  pointer-events:none
 }
 
-.piano-key-expert{
- box-shadow:
-  inset 0 -5px 0 #dc2626,
-  0 2px 2px rgba(0,0,0,.15)
+/* =====================================================
+   LOCKED PIANO
+===================================================== */
+
+.piano-lock-bar{
+ position:sticky;
+ bottom:10px;
+ z-index:100;
+ display:flex;
+ justify-content:center;
+ margin-top:5px;
+ pointer-events:none
 }
 
-/* =========================================================
+.piano-lock-button{
+ pointer-events:auto;
+ background:#111827;
+ color:white;
+ box-shadow:0 5px 15px rgba(0,0,0,.25)
+}
+
+body.piano-locked .piano-card{
+ position:sticky;
+ bottom:0;
+ z-index:500;
+ box-shadow:0 -5px 25px rgba(0,0,0,.2)
+}
+
+/* =====================================================
    ACTIONS
-   ========================================================= */
+===================================================== */
 
 .action-grid{
  display:grid;
@@ -513,9 +438,9 @@ select{
  gap:10px
 }
 
-/* =========================================================
+/* =====================================================
    PREVIEW
-   ========================================================= */
+===================================================== */
 
 .preview-overlay{
  position:fixed;
@@ -523,7 +448,7 @@ select{
  background:rgba(0,0,0,.72);
  z-index:9999;
  overflow:auto;
- padding:20px;
+ padding:15px;
  display:none
 }
 
@@ -532,19 +457,27 @@ select{
 }
 
 .preview-toolbar{
- max-width:1200px;
- margin:0 auto 15px;
+ max-width:1400px;
+ margin:0 auto 10px;
  display:flex;
  flex-wrap:wrap;
  gap:8px;
- justify-content:flex-end
+ justify-content:space-between;
+ align-items:center
+}
+
+.preview-toolbar-left,
+.preview-toolbar-right{
+ display:flex;
+ flex-wrap:wrap;
+ gap:8px
 }
 
 .lesson-preview{
  background:white;
  color:#111827;
  width:100%;
- max-width:1400px;
+ max-width:1500px;
  margin:auto;
  padding:25px;
  border-radius:12px
@@ -574,58 +507,178 @@ select{
  border-radius:8px
 }
 
-/* =========================================================
-   FINGERING ONLY
-   ========================================================= */
+/* =====================================================
+   PREVIEW PLAYER
+===================================================== */
 
-.fingering-only{
- display:grid;
- grid-template-columns:repeat(auto-fit,minmax(95px,1fr));
- gap:15px;
+.preview-player{
+ position:relative;
+ margin:0 auto 20px;
+ max-width:700px;
+ background:#f8fafc;
+ border:1px solid #cbd5e1;
+ border-radius:14px;
+ overflow:hidden
+}
+
+.preview-player-header{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:10px 14px;
+ background:#e2e8f0;
+ cursor:pointer;
+ font-weight:800
+}
+
+.preview-player-body{
+ padding:12px
+}
+
+.preview-player.minimised .preview-player-body{
+ display:none
+}
+
+.preview-player-row{
+ display:flex;
+ flex-wrap:wrap;
+ gap:6px;
+ justify-content:center
+}
+
+.preview-player button{
+ padding:7px 10px
+}
+
+.preview-player-position{
+ text-align:center;
+ font-size:.85rem;
+ color:#64748b;
+ margin-top:8px
+}
+
+/* =====================================================
+   PREVIEW STAFF
+===================================================== */
+
+.preview-staff{
+ width:100%;
+ overflow-x:auto;
+ margin-bottom:20px
+}
+
+.preview-staff-line{
+ width:100%;
+ overflow-x:auto;
+ margin-bottom:12px
+}
+
+.preview-staff-line svg{
+ display:block;
+ margin:auto
+}
+
+/* =====================================================
+   NOTE / FINGERING PAIRS
+===================================================== */
+
+.preview-notes{
+ display:flex;
+ flex-direction:column;
+ gap:18px;
  margin-top:20px
 }
 
-.fingering-card{
- text-align:center;
+.preview-note-row{
+ display:grid;
+ grid-template-columns:minmax(300px,1fr) minmax(150px,260px);
+ gap:15px;
+ align-items:center;
  border:1px solid #cbd5e1;
  border-radius:12px;
  padding:12px;
  break-inside:avoid
 }
 
-.fingering-card.expert{
- border:2px solid #dc2626;
- background:#fff1f2
+.preview-note-info{
+ text-align:center
 }
 
-.fingering-card .big-name{
- font-size:1.3rem;
+.preview-note-info .name{
+ font-size:1.35rem;
  font-weight:900
 }
 
-.fingering-card .number{
- font-size:1.3rem;
- font-weight:900;
- color:#2563eb
+.preview-note-info .number{
+ font-size:1.35rem;
+ color:#2563eb;
+ font-weight:900
 }
 
-.fingering-card .mini-holes{
+.preview-note-diagram{
  display:flex;
  flex-direction:column;
  align-items:center;
- gap:2px;
- margin:8px 0
+ gap:3px
 }
 
-.fingering-card .mini-holes .hole{
+.preview-hole{
  width:22px;
  height:22px;
- border-width:2px
+ border:2px solid #111827;
+ border-radius:50%
 }
 
-/* =========================================================
+.preview-hole.covered{
+ background:#111827
+}
+
+.preview-breath{
+ border:2px solid #60a5fa;
+ background:#eff6ff;
+ border-radius:12px;
+ padding:20px;
+ text-align:center;
+ font-size:1.4rem;
+ font-weight:900
+}
+
+.rest-card{
+ background:#fef3c7
+}
+
+.grace-card{
+ border:2px solid #7c3aed
+}
+
+.expert-card{
+ border:2px solid #ef4444;
+ background:#fee2e2
+}
+
+/* =====================================================
+   VIEWS
+===================================================== */
+
+.view-buttons{
+ display:flex;
+ flex-wrap:wrap;
+ gap:8px;
+ margin-bottom:12px
+}
+
+.view-buttons button.active{
+ background:#111827;
+ color:white
+}
+
+.view-hidden{
+ display:none!important
+}
+
+/* =====================================================
    MOBILE
-   ========================================================= */
+===================================================== */
 
 @media(max-width:800px){
 
@@ -641,12 +694,8 @@ select{
   grid-template-columns:1fr 1fr
  }
 
- .action-grid{
-  grid-template-columns:1fr 1fr
- }
-
- .combined-staff{
-  min-width:850px
+ .preview-note-row{
+  grid-template-columns:1fr
  }
 
 }
@@ -665,23 +714,23 @@ select{
   grid-template-columns:1fr
  }
 
- .preview-meta{
-  grid-template-columns:1fr
- }
-
  .action-grid{
-  grid-template-columns:1fr
+  grid-template-columns:1fr 1fr
  }
 
  .lesson-preview{
   padding:12px
  }
 
+ .preview-note-row{
+  padding:8px
+ }
+
 }
 
-/* =========================================================
+/* =====================================================
    PRINT
-   ========================================================= */
+===================================================== */
 
 @media print{
 
@@ -705,30 +754,24 @@ select{
  }
 
  .lesson-preview{
+  width:100%;
   max-width:none;
   box-shadow:none;
   padding:5mm
  }
 
-}
+ .preview-player{
+  display:none
+ }
 
-/* =========================================================
-   LOCKED PIANO
-   ========================================================= */
+ .preview-staff{
+  overflow:visible
+ }
 
-body.piano-fixed .piano-section{
- position:fixed;
- left:0;
- right:0;
- bottom:0;
- z-index:8000;
- background:white;
- padding:8px 15px 0;
- box-shadow:0 -5px 20px rgba(0,0,0,.25)
-}
+ .preview-staff-line{
+  overflow:visible
+ }
 
-body.piano-fixed main{
- padding-bottom:280px
 }
 
 </style>
@@ -737,15 +780,18 @@ body.piano-fixed main{
 <body>
 
 <header>
+
 <h1>ML6CMG.T.W</h1>
+
 <p>Tin Whistle Melody Teacher</p>
+
 </header>
 
 <main>
 
-<!-- =======================================================
-     SONG INFORMATION
-======================================================= -->
+<!-- ===================================================
+ SONG INFORMATION
+=================================================== -->
 
 <section class="card">
 
@@ -760,33 +806,46 @@ body.piano-fixed main{
 
 <div>
 <label>Key</label>
+
 <select id="key">
+
 <option>D</option>
 <option>G</option>
 <option>C</option>
 <option>A</option>
 <option>E</option>
+
 </select>
+
 </div>
 
 <div>
+
 <label>Time signature</label>
+
 <select id="time">
+
 <option>4/4</option>
 <option>3/4</option>
 <option>2/4</option>
 <option>6/8</option>
+
 </select>
+
 </div>
 
 <div>
+
 <label>Whistle</label>
+
 <select id="whistle">
+
 <option>D</option>
 <option>C</option>
 <option>G</option>
-<option>F</option>
+
 </select>
+
 </div>
 
 </div>
@@ -794,9 +853,9 @@ body.piano-fixed main{
 </section>
 
 
-<!-- =======================================================
-     MELODY
-======================================================= -->
+<!-- ===================================================
+ MELODY
+=================================================== -->
 
 <section class="card">
 
@@ -830,26 +889,24 @@ Clear melody
 
 <p class="small">
 
-Tap a piano key to add it.
+Tap piano keys to enter notes.
 
-Tap a melody note to select it.
+Tap a melody item to select it.
 
-Double-tap a melody note to change its duration.
+Double-tap a note to change its duration.
 
-Press and hold a staff note for about 700ms to delete it.
+On the staff, tap to select.
+
+Press and hold a staff item for about 700ms to delete it.
 
 </p>
-
-<div id="durationHelp" class="status">
-Duration: Quarter note — double-tap a note to cycle duration.
-</div>
 
 </section>
 
 
-<!-- =======================================================
-     STAFF
-======================================================= -->
+<!-- ===================================================
+ STAFF
+=================================================== -->
 
 <section class="card">
 
@@ -863,44 +920,44 @@ Tap a note to select it.
 
 Press and hold for about 700ms to delete it.
 
-Notes are displayed in exactly the order you enter them.
-
-The app does not invent notes.
+The staff only contains the notes actually entered.
 
 </div>
 
 <div class="view-buttons">
 
-<button id="viewCombined"
+<button id="staffViewBtn"
  class="active"
- onclick="setViewMode('combined',this)">
-Staff + Fingerings
+ onclick="setView('combined',this)">
+Staff + Fingering
 </button>
 
-<button id="viewStaff"
- onclick="setViewMode('staff',this)">
-Staff Only
+<button onclick="setView('staff',this)">
+Staff only
 </button>
 
-<button id="viewFingerings"
- onclick="setViewMode('fingerings',this)">
-Fingerings Only
+<button onclick="setView('fingering',this)">
+Fingerings only
 </button>
 
 </div>
 
-<div class="display-panel">
+<div id="staffView">
+
+<div class="staff-container">
 
 <div id="staff"></div>
+
+</div>
 
 </div>
 
 </section>
 
 
-<!-- =======================================================
-     TEACH
-======================================================= -->
+<!-- ===================================================
+ CURRENT NOTE / TEACH
+=================================================== -->
 
 <section class="card">
 
@@ -1006,9 +1063,9 @@ Ready to teach.
 </section>
 
 
-<!-- =======================================================
-     SAVE
-======================================================= -->
+<!-- ===================================================
+ SAVE
+=================================================== -->
 
 <section class="card">
 
@@ -1016,7 +1073,8 @@ Ready to teach.
 
 <div class="action-grid">
 
-<button class="green" onclick="saveSong()">
+<button class="green"
+ onclick="saveSong()">
 💾 Save Song
 </button>
 
@@ -1040,41 +1098,35 @@ Ready to teach.
 ⬇ Download Song
 </button>
 
-<button onclick="saveCurrentView()">
-💾 Save Current View
-</button>
-
 </div>
 
 <div id="saveStatus" class="status">
+
 Songs are saved locally in this browser.
+
 </div>
 
 </section>
 
 
-<!-- =======================================================
-     PIANO
-======================================================= -->
+<!-- ===================================================
+ PIANO
+=================================================== -->
 
-<section class="card piano-section">
-
-<button
- id="pianoLockButton"
- class="piano-lock"
- onclick="togglePianoLock()">
-🔒 Lock Piano
-</button>
+<section class="card piano-card">
 
 <h2>Piano</h2>
 
 <p class="small">
 
-All piano notes are available for selection.
+The piano provides all available pitches for future
+instrument expansion.
 
-Notes that are not normally playable on the selected whistle
-can still be entered. Expert/unusual whistle fingerings are
-shown separately where available.
+Only pitches that exist in the current whistle database
+are treated as normal whistle notes.
+
+Other pitches can still be selected and stored so the
+system can support additional instruments later.
 
 </p>
 
@@ -1084,31 +1136,55 @@ shown separately where available.
 
 </div>
 
+<div class="piano-lock-bar">
+
+<button class="piano-lock-button"
+ onclick="togglePianoLock()"
+ id="pianoLockButton">
+
+🔒 Lock Piano
+
+</button>
+
+</div>
+
 </section>
 
 </main>
 
 
-<footer style="text-align:center;padding:25px;color:#64748b">
+<footer style="
+ text-align:center;
+ padding:25px;
+ color:#64748b
+">
 
 ML6CMG.T.W — Tin Whistle Melody Teacher
 
 </footer>
 
 
-<!-- =======================================================
-     PREVIEW
-======================================================= -->
+<!-- ===================================================
+ PREVIEW
+=================================================== -->
 
-<div id="previewOverlay" class="preview-overlay">
+<div id="previewOverlay"
+ class="preview-overlay">
 
 <div class="preview-toolbar">
+
+<div class="preview-toolbar-left">
 
 <button onclick="closePreview()">
 ✕ Close
 </button>
 
-<button class="primary" onclick="printLesson()">
+</div>
+
+<div class="preview-toolbar-right">
+
+<button class="primary"
+ onclick="printLesson()">
 🖨 Print / Save PDF
 </button>
 
@@ -1118,7 +1194,11 @@ ML6CMG.T.W — Tin Whistle Melody Teacher
 
 </div>
 
-<div id="lessonPreview" class="lesson-preview"></div>
+</div>
+
+<div id="lessonPreview"
+ class="lesson-preview">
+</div>
 
 </div>
 
@@ -1126,23 +1206,10 @@ ML6CMG.T.W — Tin Whistle Melody Teacher
 <script>
 
 /* =========================================================
-   WHISTLE FINGERINGS
-   ========================================================= */
+ TIN WHISTLE DATABASE
+ ========================================================= */
 
-/*
- Standard D whistle notes plus expert techniques.
-
- IMPORTANT:
- C natural is NOT marked expert.
- C natural is represented by all holes open.
-
- Low C# is playable using the pinky/end-hole technique.
-
- The expert flag is visual only.
- It does NOT prevent a note being selected.
-*/
-
-const WHISTLE = {
+const WHISTLE={
 
 "D4":{
  name:"D",
@@ -1158,19 +1225,18 @@ const WHISTLE = {
  expert:false
 },
 
-"F4":{
- name:"F",
- number:"4½",
- holes:[true,true,true,true,false,false],
- expert:true,
- technique:"Half-cover the F# hole"
-},
-
 "F#4":{
  name:"F#",
  number:"4",
  holes:[true,true,true,true,false,false],
  expert:false
+},
+
+"F4":{
+ name:"F",
+ number:"4½",
+ holes:[true,true,true,false,false,false],
+ expert:true
 },
 
 "G4":{
@@ -1183,9 +1249,8 @@ const WHISTLE = {
 "G#4":{
  name:"G#",
  number:"2½",
- holes:[true,true,true,false,false,false],
- expert:true,
- technique:"Half-cover the G hole"
+ holes:[true,true,false,false,false,false],
+ expert:true
 },
 
 "A4":{
@@ -1198,9 +1263,8 @@ const WHISTLE = {
 "Bb4":{
  name:"Bb",
  number:"1½",
- holes:[true,true,false,false,false,false],
- expert:true,
- technique:"Half-cover the A hole"
+ holes:[true,false,false,false,false,false],
+ expert:true
 },
 
 "B4":{
@@ -1219,9 +1283,9 @@ const WHISTLE = {
 
 "C#5":{
  name:"C#",
- number:"0",
+ number:"0½",
  holes:[false,false,false,false,false,false],
- expert:false
+ expert:true
 },
 
 "D5":{
@@ -1238,19 +1302,18 @@ const WHISTLE = {
  expert:false
 },
 
-"F5":{
- name:"HIGH F",
- number:"4½^",
- holes:[true,true,true,true,false,false],
- expert:true,
- technique:"Half-cover the F# hole"
-},
-
 "F#5":{
  name:"HIGH F#",
  number:"4^",
  holes:[true,true,true,true,false,false],
  expert:false
+},
+
+"F5":{
+ name:"HIGH F",
+ number:"4½^",
+ holes:[true,true,true,false,false,false],
+ expert:true
 },
 
 "G5":{
@@ -1263,9 +1326,8 @@ const WHISTLE = {
 "G#5":{
  name:"HIGH G#",
  number:"2½^",
- holes:[true,true,true,false,false,false],
- expert:true,
- technique:"Half-cover the G hole"
+ holes:[true,true,false,false,false,false],
+ expert:true
 },
 
 "A5":{
@@ -1278,9 +1340,8 @@ const WHISTLE = {
 "Bb5":{
  name:"HIGH Bb",
  number:"1½^",
- holes:[true,true,false,false,false,false],
- expert:true,
- technique:"Half-cover the A hole"
+ holes:[true,false,false,false,false,false],
+ expert:true
 },
 
 "B5":{
@@ -1299,207 +1360,94 @@ const WHISTLE = {
 
 "C#6":{
  name:"HIGH C#",
- number:"0^",
+ number:"0½^",
  holes:[false,false,false,false,false,false],
- expert:false
+ expert:true
 }
 
 };
 
 
 /* =========================================================
-   NOTE DATABASE
-========================================================= */
+ MUSICAL NOTES
+ ========================================================= */
 
 const NOTES={
 
-"C4":{
- name:"C",
- freq:261.63,
- key:"c/4"
-},
+"D4":{name:"D",freq:293.66,key:"d/4"},
+"E4":{name:"E",freq:329.63,key:"e/4"},
+"F4":{name:"F",freq:349.23,key:"f/4"},
+"F#4":{name:"F#",freq:369.99,key:"f/4",sharp:true},
+"G4":{name:"G",freq:392,key:"g/4"},
+"G#4":{name:"G#",freq:415.30,key:"g/4",sharp:true},
+"A4":{name:"A",freq:440,key:"a/4"},
+"Bb4":{name:"Bb",freq:466.16,key:"b/4",flat:true},
+"B4":{name:"B",freq:493.88,key:"b/4"},
+"C5":{name:"C",freq:523.25,key:"c/5"},
+"C#5":{name:"C#",freq:554.37,key:"c/5",sharp:true},
 
-"C#4":{
- name:"C#",
- freq:277.18,
- key:"c/4",
- sharp:true
-},
-
-"D4":{
- name:"D",
- freq:293.66,
- key:"d/4"
-},
-
-"D#4":{
- name:"D#",
- freq:311.13,
- key:"d/4",
- sharp:true
-},
-
-"E4":{
- name:"E",
- freq:329.63,
- key:"e/4"
-},
-
-"F4":{
- name:"F",
- freq:349.23,
- key:"f/4"
-},
-
-"F#4":{
- name:"F#",
- freq:369.99,
- key:"f/4",
- sharp:true
-},
-
-"G4":{
- name:"G",
- freq:392,
- key:"g/4"
-},
-
-"G#4":{
- name:"G#",
- freq:415.30,
- key:"g/4",
- sharp:true
-},
-
-"A4":{
- name:"A",
- freq:440,
- key:"a/4"
-},
-
-"A#4":{
- name:"A#",
- freq:466.16,
- key:"a/4",
- sharp:true
-},
-
-"Bb4":{
- name:"Bb",
- freq:466.16,
- key:"b/4",
- flat:true
-},
-
-"B4":{
- name:"B",
- freq:493.88,
- key:"b/4"
-},
-
-"C5":{
- name:"C",
- freq:523.25,
- key:"c/5"
-},
-
-"C#5":{
- name:"C#",
- freq:554.37,
- key:"c/5",
- sharp:true
-},
-
-"D5":{
- name:"D",
- freq:587.33,
- key:"d/5"
-},
-
-"D#5":{
- name:"D#",
- freq:622.25,
- key:"d/5",
- sharp:true
-},
-
-"E5":{
- name:"E",
- freq:659.25,
- key:"e/5"
-},
-
-"F5":{
- name:"F",
- freq:698.46,
- key:"f/5"
-},
-
-"F#5":{
- name:"F#",
- freq:739.99,
- key:"f/5",
- sharp:true
-},
-
-"G5":{
- name:"G",
- freq:783.99,
- key:"g/5"
-},
-
-"G#5":{
- name:"G#",
- freq:830.61,
- key:"g/5",
- sharp:true
-},
-
-"A5":{
- name:"A",
- freq:880,
- key:"a/5"
-},
-
-"A#5":{
- name:"A#",
- freq:932.33,
- key:"a/5",
- sharp:true
-},
-
-"Bb5":{
- name:"Bb",
- freq:932.33,
- key:"b/5",
- flat:true
-},
-
-"B5":{
- name:"B",
- freq:987.77,
- key:"b/5"
-},
-
-"C6":{
- name:"C",
- freq:1046.50,
- key:"c/6"
-},
-
-"C#6":{
- name:"C#",
- freq:1108.73,
- key:"c/6",
- sharp:true
-}
+"D5":{name:"HIGH D",freq:587.33,key:"d/5"},
+"E5":{name:"HIGH E",freq:659.25,key:"e/5"},
+"F5":{name:"HIGH F",freq:698.46,key:"f/5"},
+"F#5":{name:"HIGH F#",freq:739.99,key:"f/5",sharp:true},
+"G5":{name:"HIGH G",freq:783.99,key:"g/5"},
+"G#5":{name:"HIGH G#",freq:830.61,key:"g/5",sharp:true},
+"A5":{name:"HIGH A",freq:880,key:"a/5"},
+"Bb5":{name:"HIGH Bb",freq:932.33,key:"b/5",flat:true},
+"B5":{name:"HIGH B",freq:987.77,key:"b/5"},
+"C6":{name:"HIGH C",freq:1046.50,key:"c/6"},
+"C#6":{name:"HIGH C#",freq:1108.73,key:"c/6",sharp:true}
 
 };
 
 
 /* =========================================================
-   PIANO
-========================================================= */
+ PIANO
+ ========================================================= */
+
+const PIANO_FREQUENCIES={
+
+"C4":261.63,
+"C#4":277.18,
+"D4":293.66,
+"D#4":311.13,
+"E4":329.63,
+"F4":349.23,
+"F#4":369.99,
+"G4":392,
+"G#4":415.30,
+"A4":440,
+"A#4":466.16,
+"B4":493.88,
+
+"C5":523.25,
+"C#5":554.37,
+"D5":587.33,
+"D#5":622.25,
+"E5":659.25,
+"F5":698.46,
+"F#5":739.99,
+"G5":783.99,
+"G#5":830.61,
+"A5":880,
+"A#5":932.33,
+"B5":987.77,
+
+"C6":1046.50,
+"C#6":1108.73
+
+};
+
+const PIANO_NAMES={};
+
+Object.keys(PIANO_FREQUENCIES).forEach(n=>{
+
+ PIANO_NAMES[n]=n
+  .replace("#","♯")
+  .replace(/[456]/,"");
+
+});
+
 
 const pianoNotes=[
 
@@ -1508,7 +1456,6 @@ const pianoNotes=[
 ["D4","white"],
 ["D#4","black"],
 ["E4","white"],
-
 ["F4","white"],
 ["F#4","black"],
 ["G4","white"],
@@ -1522,7 +1469,6 @@ const pianoNotes=[
 ["D5","white"],
 ["D#5","black"],
 ["E5","white"],
-
 ["F5","white"],
 ["F#5","black"],
 ["G5","white"],
@@ -1536,23 +1482,201 @@ const pianoNotes=[
 
 ];
 
-const PIANO_FREQUENCIES={};
 
-Object.keys(NOTES).forEach(note=>{
- PIANO_FREQUENCIES[note]=NOTES[note].freq;
-});
+function buildPiano(){
 
-function pianoDisplayName(note){
+ const piano=document.getElementById("piano");
 
- return note
-  .replace("#","♯")
-  .replace("Bb","B♭")
-  .replace(/[456]/,"");
+ piano.innerHTML="";
+
+ const whiteLayer=document.createElement("div");
+
+ whiteLayer.className="piano-white-layer";
+
+ const blackLayer=document.createElement("div");
+
+ blackLayer.className="piano-black-layer";
+
+
+ const blackAfter={
+
+ "C#4":0,
+ "D#4":1,
+ "F#4":3,
+ "G#4":4,
+ "A#4":5,
+
+ "C#5":7,
+ "D#5":8,
+ "F#5":10,
+ "G#5":11,
+ "A#5":12,
+
+ "C#6":14
+
+ };
+
+
+ pianoNotes.forEach(([note,type])=>{
+
+  if(type!=="white")return;
+
+  const key=document.createElement("button");
+
+  key.type="button";
+
+  key.className="piano-white-key";
+
+  key.dataset.note=note;
+
+  key.innerHTML=
+   `<span class="piano-note-name">
+    ${PIANO_NAMES[note]}
+   </span>`;
+
+  key.addEventListener(
+   "pointerdown",
+   e=>{
+
+    e.preventDefault();
+
+    pressPianoKey(note,key);
+
+   }
+  );
+
+  whiteLayer.appendChild(key);
+
+ });
+
+
+ pianoNotes.forEach(([note,type])=>{
+
+  if(type!=="black")return;
+
+  const key=document.createElement("button");
+
+  key.type="button";
+
+  key.className="piano-black-key";
+
+  key.dataset.note=note;
+
+  key.innerHTML=
+   `<span>${PIANO_NAMES[note]}</span>`;
+
+  key.style.left=
+   (blackAfter[note]*55+36)+"px";
+
+  key.addEventListener(
+   "pointerdown",
+   e=>{
+
+    e.preventDefault();
+
+    pressPianoKey(note,key);
+
+   }
+  );
+
+  blackLayer.appendChild(key);
+
+ });
+
+
+ piano.appendChild(whiteLayer);
+
+ piano.appendChild(blackLayer);
+
+}
+
+
+function pressPianoKey(note,element){
+
+ playFrequency(
+  PIANO_FREQUENCIES[note]
+ );
+
+ /*
+  All piano notes are allowed to enter
+  the melody.
+
+  This deliberately allows future
+  instruments to be added later.
+ */
+
+ if(NOTES[note]){
+
+  addNote(note);
+
+ }else{
+
+  addInstrumentNote(note);
+
+ }
+
+ element.classList.add("pressed");
+
+ setTimeout(()=>{
+
+  element.classList.remove("pressed");
+
+ },160);
+
 }
 
 
 /* =========================================================
-   STATE
+ ADD NOTES OUTSIDE WHISTLE DATABASE
+ ========================================================= */
+
+function addInstrumentNote(note){
+
+ if(!PIANO_FREQUENCIES[note])return;
+
+ saveHistory();
+
+ melody.push({
+
+  type:"note",
+  pitch:note,
+  duration:"q",
+  grace:false,
+  expert:true
+
+ });
+
+ currentIndex=melody.length-1;
+
+ renderAll();
+
+ showNote(note);
+
+}
+
+
+/* =========================================================
+ PIANO HIGHLIGHT
+========================================================= */
+
+function highlightPiano(note){
+
+ document.querySelectorAll(
+  ".piano-white-key,.piano-black-key"
+ ).forEach(k=>{
+
+  k.classList.toggle(
+   "active",
+   k.dataset.note===note
+  );
+
+ });
+
+}
+
+
+/* =========================================================
+ STATE
 ========================================================= */
 
 let melody=[];
@@ -1562,99 +1686,31 @@ let currentIndex=-1;
 let timer=null;
 let speed=1500;
 let audioContext=null;
-let viewMode="combined";
 let pianoLocked=false;
 
 
 /* =========================================================
-   DURATION
-========================================================= */
-
-const DURATIONS=[
- {
-  value:"q",
-  name:"Quarter",
-  beats:1
- },
- {
-  value:"h",
-  name:"Half",
-  beats:2
- },
- {
-  value:"w",
-  name:"Whole",
-  beats:4
- },
- {
-  value:"8",
-  name:"Eighth",
-  beats:.5
- }
-];
-
-function durationName(item){
-
- if(item.type==="rest"){
-  return "Rest"
- }
-
- const d=DURATIONS.find(x=>x.value===item.duration);
-
- return d?d.name:"Quarter";
-}
-
-function cycleDuration(index){
-
- const item=melody[index];
-
- if(!item || item.type!=="note")return;
-
- saveHistory();
-
- const current=DURATIONS.findIndex(
-  d=>d.value===item.duration
- );
-
- const next=
-  current<0
-   ?0
-   :(current+1)%DURATIONS.length;
-
- item.duration=DURATIONS[next].value;
-
- currentIndex=index;
-
- renderAll();
-
- showNote(item.pitch);
-
- document.getElementById("durationHelp").textContent=
-  "Duration changed to "+
-  DURATIONS[next].name+
-  " note ("+
-  DURATIONS[next].beats+
-  " beat"+
-  (DURATIONS[next].beats===1?"":"s")+
-  ").";
-}
-
-
-/* =========================================================
-   AUDIO
+ AUDIO
 ========================================================= */
 
 function playFrequency(freq){
 
+ if(!freq)return;
+
  if(!audioContext){
 
   audioContext=
-   new(window.AudioContext||
-       window.webkitAudioContext)();
+   new(
+    window.AudioContext ||
+    window.webkitAudioContext
+   )();
+
  }
 
  if(audioContext.state==="suspended"){
+
   audioContext.resume();
+
  }
 
  const osc=
@@ -1683,186 +1739,22 @@ function playFrequency(freq){
  );
 
  osc.connect(gain);
- gain.connect(audioContext.destination);
+
+ gain.connect(
+  audioContext.destination
+ );
 
  osc.start();
 
  osc.stop(
   audioContext.currentTime+.7
  );
-}
-
-
-/* =========================================================
-   PIANO
-========================================================= */
-
-function buildPiano(){
-
- const piano=
-  document.getElementById("piano");
-
- piano.innerHTML="";
-
- const whiteLayer=
-  document.createElement("div");
-
- whiteLayer.className=
-  "piano-white-layer";
-
- const blackLayer=
-  document.createElement("div");
-
- blackLayer.className=
-  "piano-black-layer";
-
- const blackAfter={
-
-  "C#4":0,
-  "D#4":1,
-  "F#4":3,
-  "G#4":4,
-  "A#4":5,
-
-  "C#5":7,
-  "D#5":8,
-  "F#5":10,
-  "G#5":11,
-  "A#5":12,
-
-  "C#6":14
-
- };
-
- pianoNotes.forEach(([note,type])=>{
-
-  if(type!=="white")return;
-
-  const key=
-   document.createElement("button");
-
-  key.type="button";
-
-  key.className=
-   "piano-white-key";
-
-  key.dataset.note=note;
-
-  key.innerHTML=
-   `<span class="piano-note-name">
-     ${pianoDisplayName(note)}
-    </span>`;
-
-  if(isExpertNote(note)){
-   key.classList.add("piano-key-expert");
-  }
-
-  key.addEventListener(
-   "pointerdown",
-   e=>{
-    e.preventDefault();
-    pressPianoKey(note,key);
-   }
-  );
-
-  whiteLayer.appendChild(key);
-
- });
-
- pianoNotes.forEach(([note,type])=>{
-
-  if(type!=="black")return;
-
-  const key=
-   document.createElement("button");
-
-  key.type="button";
-
-  key.className=
-   "piano-black-key";
-
-  key.dataset.note=note;
-
-  key.innerHTML=
-   `<span>${pianoDisplayName(note)}</span>`;
-
-  key.style.left=
-   (blackAfter[note]*55+36)+"px";
-
-  if(isExpertNote(note)){
-   key.classList.add("piano-key-expert");
-  }
-
-  key.addEventListener(
-   "pointerdown",
-   e=>{
-    e.preventDefault();
-    pressPianoKey(note,key);
-   }
-  );
-
-  blackLayer.appendChild(key);
-
- });
-
- piano.appendChild(whiteLayer);
- piano.appendChild(blackLayer);
-}
-
-
-function isExpertNote(note){
-
- return !!(
-  WHISTLE[note] &&
-  WHISTLE[note].expert
- );
-
-}
-
-
-function pressPianoKey(note,element){
-
- playFrequency(
-  PIANO_FREQUENCIES[note]
- );
-
- /*
-  Every piano note can now be added.
-
-  There is deliberately NO:
-  if(NOTES[note]) return
-
-  restriction here.
- */
-
- addNote(note);
-
- element.classList.add("pressed");
-
- setTimeout(()=>{
-  element.classList.remove("pressed");
- },160);
-}
-
-
-function highlightPiano(note){
-
- document.querySelectorAll(
-  ".piano-white-key,.piano-black-key"
- ).forEach(k=>{
-
-  k.classList.toggle(
-   "active",
-   k.dataset.note===note
-  );
-
- });
 
 }
 
 
 /* =========================================================
-   HISTORY
+ HISTORY
 ========================================================= */
 
 function saveHistory(){
@@ -1872,15 +1764,18 @@ function saveHistory(){
  );
 
  if(history.length>50){
+
   history.shift();
+
  }
 
  redoStack=[];
+
 }
 
 
 /* =========================================================
-   ADD NOTE
+ ADD NOTE
 ========================================================= */
 
 function addNote(note){
@@ -1892,31 +1787,27 @@ function addNote(note){
  melody.push({
 
   type:"note",
-
   pitch:note,
-
   duration:"q",
-
   grace:false
 
  });
 
- currentIndex=
-  melody.length-1;
-
- renderAll();
-
- showNote(note);
+ currentIndex=melody.length-1;
 
  playFrequency(
   NOTES[note].freq
  );
 
+ renderAll();
+
+ showNote(note);
+
 }
 
 
 /* =========================================================
-   DELETE
+ DELETE
 ========================================================= */
 
 function deleteAt(index){
@@ -1933,6 +1824,7 @@ function deleteAt(index){
  if(!melody.length){
 
   currentIndex=-1;
+
   showNote(null);
 
  }else{
@@ -1947,9 +1839,13 @@ function deleteAt(index){
    melody[currentIndex];
 
   if(item.type==="note"){
+
    showNote(item.pitch);
+
   }else{
+
    showNote(null);
+
   }
 
  }
@@ -1990,7 +1886,7 @@ function clearMelody(){
 
 
 /* =========================================================
-   UNDO / REDO
+ UNDO / REDO
 ========================================================= */
 
 function undo(){
@@ -2002,7 +1898,9 @@ function undo(){
  );
 
  melody=
-  JSON.parse(history.pop());
+  JSON.parse(
+   history.pop()
+  );
 
  currentIndex=
   melody.length-1;
@@ -2023,7 +1921,9 @@ function redo(){
  );
 
  melody=
-  JSON.parse(redoStack.pop());
+  JSON.parse(
+   redoStack.pop()
+  );
 
  currentIndex=
   melody.length-1;
@@ -2039,17 +1939,13 @@ function updateCurrentFromIndex(){
 
  if(
   currentIndex>=0 &&
-  melody[currentIndex]
+  melody[currentIndex] &&
+  melody[currentIndex].type==="note"
  ){
 
-  const item=
-   melody[currentIndex];
-
-  if(item.type==="note"){
-   showNote(item.pitch);
-  }else{
-   showNote(null);
-  }
+  showNote(
+   melody[currentIndex].pitch
+  );
 
  }else{
 
@@ -2061,7 +1957,53 @@ function updateCurrentFromIndex(){
 
 
 /* =========================================================
-   SEQUENCE
+ DOUBLE TAP DURATION
+========================================================= */
+
+let lastSequenceTap=0;
+let lastSequenceIndex=-1;
+
+
+function cycleDuration(item){
+
+ const durations=[
+  "q",
+  "h",
+  "w"
+ ];
+
+ const names={
+  q:"Quarter note — 1 beat",
+  h:"Half note — 2 beats",
+  w:"Whole note — 4 beats"
+ };
+
+ let current=
+  durations.indexOf(
+   item.duration||"q"
+  );
+
+ current++;
+
+ if(current>=durations.length){
+
+  current=0;
+
+ }
+
+ item.duration=
+  durations[current];
+
+ document.getElementById("status").textContent=
+  names[item.duration];
+
+ renderAll();
+
+}
+
+
+/* =========================================================
+ SEQUENCE
 ========================================================= */
 
 function renderSequence(){
@@ -2069,17 +2011,18 @@ function renderSequence(){
  const el=
   document.getElementById("sequence");
 
- el.innerHTML="";
-
  if(!melody.length){
 
   el.innerHTML=
    `<span class="small">
-     Enter notes using the piano below.
-    </span>`;
+    Enter notes using the piano below.
+   </span>`;
 
   return;
+
  }
+
+ el.innerHTML="";
 
  melody.forEach((item,index)=>{
 
@@ -2089,67 +2032,62 @@ function renderSequence(){
   b.className="seq-note";
 
   if(index===currentIndex){
+
    b.classList.add("current");
+
   }
 
-  if(
-   item.type==="note" &&
-   isExpertNote(item.pitch)
-  ){
-   b.classList.add("expert");
-  }
+  if(item.type==="breath"){
 
-  if(
-   item.type==="note" &&
-   item.grace
-  ){
-   b.classList.add("grace");
-  }
+   b.classList.add("seq-breath");
 
-  if(item.type==="rest"){
-
-   b.textContent="BREATH";
+   b.textContent="🫁 BREATH";
 
   }else{
 
-   b.innerHTML=
-    escapeHTML(
-     NOTES[item.pitch].name
-    )+
-    `<span class="seq-duration">
-      ${durationName(item)}
-     </span>`;
+   b.textContent=
+    NOTES[item.pitch]
+     ? NOTES[item.pitch].name
+     : item.pitch;
+
+   if(item.grace){
+
+    b.classList.add("seq-grace");
+
+   }
 
   }
 
-  let lastTap=0;
+  b.onclick=()=>{
 
-  b.addEventListener(
-   "pointerup",
-   e=>{
+   const now=Date.now();
 
-    const now=Date.now();
+   if(
+    lastSequenceIndex===index &&
+    now-lastSequenceTap<400
+   ){
 
-    if(now-lastTap<350){
+    if(item.type==="note"){
 
-     cycleDuration(index);
-
-    }else{
-
-     currentIndex=index;
-
-     updateCurrentFromIndex();
-
-     renderSequence();
-
-     renderStaff();
+     cycleDuration(item);
 
     }
 
-    lastTap=now;
+   }else{
+
+    currentIndex=index;
+
+    updateCurrentFromIndex();
+
+    renderAll();
 
    }
-  );
+
+   lastSequenceIndex=index;
+
+   lastSequenceTap=now;
+
+  };
 
   el.appendChild(b);
 
@@ -2159,24 +2097,33 @@ function renderSequence(){
 
 
 /* =========================================================
-   CURRENT NOTE
+ CURRENT NOTE
 ========================================================= */
 
 function showNote(note){
 
  const name=
-  document.getElementById("currentNote");
+  document.getElementById(
+   "currentNote"
+  );
 
  const number=
-  document.getElementById("currentNumber");
+  document.getElementById(
+   "currentNumber"
+  );
 
  const fingering=
-  document.getElementById("fingering");
+  document.getElementById(
+   "fingering"
+  );
+
 
  if(!note){
 
   name.textContent="—";
+
   number.textContent="—";
+
   fingering.innerHTML="";
 
   document.getElementById(
@@ -2189,26 +2136,24 @@ function showNote(note){
 
  }
 
+
  const data=
   WHISTLE[note];
 
- /*
-  A note may be selected that has no
-  whistle fingering. It still works
-  as a musical note.
- */
 
  if(!data){
 
   name.textContent=
-   NOTES[note].name;
+   NOTES[note]
+    ? NOTES[note].name
+    : note;
 
   number.textContent="—";
 
   fingering.innerHTML=
    `<div class="small">
-     No standard fingering stored for this note.
-    </div>`;
+    No tin whistle fingering stored.
+   </div>`;
 
   document.getElementById(
    "playNow"
@@ -2217,13 +2162,19 @@ function showNote(note){
   highlightPiano(note);
 
   return;
+
  }
 
- name.textContent=data.name;
 
- number.textContent=data.number;
+ name.textContent=
+  data.name;
+
+ number.textContent=
+  data.number;
+
 
  fingering.innerHTML="";
+
 
  data.holes.forEach(
   (covered,index)=>{
@@ -2233,7 +2184,11 @@ function showNote(note){
 
    hole.className=
     "hole"+
-    (covered?" covered":"");
+    (
+     covered
+      ?" covered"
+      :""
+    );
 
    hole.setAttribute(
     "aria-label",
@@ -2247,473 +2202,18 @@ function showNote(note){
   }
  );
 
- if(data.technique){
 
-  const t=
-   document.createElement("div");
-
-  t.className="small";
-
-  t.textContent=
-   data.technique;
-
-  fingering.appendChild(t);
-
- }
+ highlightPiano(note);
 
  document.getElementById(
   "playNow"
  ).textContent="PLAY NOW";
 
- highlightPiano(note);
-
 }
 
 
 /* =========================================================
-   STAFF HELPERS
-========================================================= */
-
-function getVexKey(key){
-
- return {
-  D:"D",
-  G:"G",
-  C:"C",
-  A:"A",
-  E:"E"
- }[key]||"D";
-
-}
-
-function getBeats(time){
-
- return Number(
-  time.split("/")[0]
- );
-
-}
-
-function getBeatValue(time){
-
- return Number(
-  time.split("/")[1]
- );
-
-}
-
-
-/* =========================================================
-   CREATE VEX NOTE
-========================================================= */
-
-function createVexNote(item){
-
- const VF=
-  Vex.Flow;
-
- if(item.type==="rest"){
-
-  return new VF.StaveNote({
-
-   clef:"treble",
-
-   keys:["b/4"],
-
-   duration:"qr"
-
-  });
-
- }
-
- const info=
-  NOTES[item.pitch];
-
- if(!info)return null;
-
- /*
-  Grace notes are kept as normal
-  quarter notes on the main staff.
-  This keeps rendering stable and
-  preserves the musical pitch.
- */
-
- const duration=
-  item.duration||"q";
-
- const n=
-  new VF.StaveNote({
-
-   clef:"treble",
-
-   keys:[info.key],
-
-   duration:duration
-
- });
-
- if(info.sharp){
-
-  n.addAccidental(
-   0,
-   new VF.Accidental("#")
-  );
-
- }
-
- if(info.flat){
-
-  n.addAccidental(
-   0,
-   new VF.Accidental("b")
-  );
-
- }
-
- if(item.grace){
-
-  n.setKeyStyle(
-   0,
-   {
-    fillStyle:"#7c3aed",
-    strokeStyle:"#7c3aed"
-   }
-  );
-
- }
-
- if(
-  melody[currentIndex]===item
- ){
-
-  n.setStyle({
-
-   fillStyle:"#2563eb",
-
-   strokeStyle:"#2563eb"
-
-  });
-
- }
-
- return n;
-
-}
-
-
-/* =========================================================
-   DRAW STAFF LINE
-========================================================= */
-
-function drawStaffLine(
- container,
- items,
- startIndex
-){
-
- const VF=
-  Vex.Flow;
-
- const width=
-  Math.max(
-   950,
-   window.innerWidth-80
-  );
-
- const renderer=
-  new VF.Renderer(
-   container,
-   VF.Renderer.Backends.SVG
-  );
-
- renderer.resize(
-  width,
-  150
- );
-
- const context=
-  renderer.getContext();
-
- const stave=
-  new VF.Stave(
-   20,
-   35,
-   width-40
-  );
-
- if(startIndex===0){
-
-  stave
-   .addClef("treble")
-   .addKeySignature(
-    getVexKey(
-     document.getElementById("key").value
-    )
-   )
-   .addTimeSignature(
-    document.getElementById("time").value
-   );
-
- }else{
-
-  /*
-   Only a new staff line.
-
-   The clef appears at the beginning
-   of the new line, not after every note.
-  */
-
-  stave.addClef("treble");
-
- }
-
- stave
-  .setContext(context)
-  .draw();
-
- const vfNotes=[];
- const indexMap=[];
-
- items.forEach(
-  (item,localIndex)=>{
-
-   const realIndex=
-    startIndex+localIndex;
-
-   const n=
-    createVexNote(item);
-
-   if(!n)return;
-
-   vfNotes.push(n);
-
-   indexMap.push(realIndex);
-
-  }
- );
-
- if(!vfNotes.length)return;
-
- /*
-  The critical reliability fix:
-
-  Give VexFlow enough horizontal room
-  for the actual notes instead of trying
-  to squeeze everything into a tiny voice.
- */
-
- const voice=
-  new VF.Voice({
-
-   num_beats:
-    Math.max(
-     1,
-     getBeats(
-      document.getElementById("time").value
-     )
-    ),
-
-   beat_value:
-    getBeatValue(
-     document.getElementById("time").value
-    )
-
-  });
-
- voice.setMode(
-  VF.Voice.Mode.SOFT
- );
-
- /*
-  We deliberately use SOFT mode.
-  This allows the user's sequence to be
-  displayed even if it doesn't make a
-  complete mathematical bar.
- */
-
- voice.addTickables(
-  vfNotes
- );
-
- new VF.Formatter()
-  .joinVoices([voice])
-  .format(
-   [voice],
-   width-220
-  );
-
- voice.draw(
-  context,
-  stave
- );
-
- attachStaffControls(
-  container,
-  indexMap
- );
-
-}
-
-
-/* =========================================================
-   STAFF CONTROLS
-========================================================= */
-
-function attachStaffControls(
- container,
- indexMap
-){
-
- const svg=
-  container.querySelector("svg");
-
- if(!svg)return;
-
- const renderedNotes=
-  svg.querySelectorAll(
-   ".vf-stavenote"
-  );
-
- renderedNotes.forEach(
-  (node,i)=>{
-
-   const realIndex=
-    indexMap[i];
-
-   if(
-    realIndex===undefined ||
-    !melody[realIndex]
-   )return;
-
-   node.style.cursor="pointer";
-
-   let holdTimer=null;
-
-   let moved=false;
-
-   let lastTap=0;
-
-   node.addEventListener(
-    "pointerdown",
-    e=>{
-
-     e.preventDefault();
-
-     moved=false;
-
-     holdTimer=
-      setTimeout(()=>{
-
-       holdTimer=null;
-
-       if(
-        confirm(
-         "Delete this "+
-         (
-          melody[realIndex].type==="rest"
-           ?"breath"
-           :"note"
-         )+
-         "?"
-        )
-       ){
-
-        deleteAt(realIndex);
-
-       }
-
-      },700);
-
-    }
-   );
-
-   node.addEventListener(
-    "pointermove",
-    ()=>{
-
-     moved=true;
-
-     if(holdTimer){
-
-      clearTimeout(holdTimer);
-
-      holdTimer=null;
-
-     }
-
-    }
-   );
-
-   node.addEventListener(
-    "pointerup",
-    ()=>{
-
-     if(holdTimer){
-
-      clearTimeout(
-       holdTimer
-      );
-
-      holdTimer=null;
-
-      if(!moved){
-
-       const now=
-        Date.now();
-
-       if(
-        now-lastTap<350
-       ){
-
-        cycleDuration(
-         realIndex
-        );
-
-       }else{
-
-        currentIndex=
-         realIndex;
-
-        updateCurrentFromIndex();
-
-        renderAll();
-
-       }
-
-       lastTap=now;
-
-      }
-
-     }
-
-    }
-   );
-
-   node.addEventListener(
-    "pointercancel",
-    ()=>{
-
-     if(holdTimer){
-
-      clearTimeout(
-       holdTimer
-      );
-
-      holdTimer=null;
-
-     }
-
-    }
-   );
-
-  }
- );
-
-}
-
-
-/* =========================================================
-   STAFF RENDER
+ STAFF
 ========================================================= */
 
 function renderStaff(){
@@ -2727,81 +2227,37 @@ function renderStaff(){
 
   container.innerHTML=
    `<p class="small">
-     Your musical notation will appear here.
-    </p>`;
+    Your musical notation will appear here.
+   </p>`;
 
   return;
 
  }
 
- if(
-  !window.Vex ||
-  !Vex.Flow
- ){
+ if(!window.Vex){
 
   container.innerHTML=
    `<p>
-     Music notation library could not be loaded.
-    </p>`;
+    Music notation library could not be loaded.
+   </p>`;
 
   return;
 
  }
 
- try{
+ /*
+  IMPORTANT:
+  We do not split the melody into
+  arbitrary groups of four.
 
-  if(viewMode==="staff"){
+  Each staff line contains as many
+  items as will physically fit.
 
-   renderStaffOnly(container);
+  Bar lines are intentionally left
+  to the user.
+ */
 
-  }else if(
-   viewMode==="fingerings"
-  ){
-
-   renderFingeringsOnly(container);
-
-  }else{
-
-   renderCombined(container);
-
-  }
-
- }catch(error){
-
-  console.error(
-   "STAFF ERROR:",
-   error
-  );
-
-  /*
-   Never erase the melody because
-   the renderer failed.
-
-   Instead show a useful message.
-  */
-
-  container.innerHTML=
-   `<div class="status">
-     The notes are saved correctly.
-     The notation renderer encountered an error.
-     Try changing the view to
-     <strong>Fingerings Only</strong>
-     and back to
-     <strong>Staff + Fingerings</strong>.
-    </div>`;
-
- }
-
-}
-
-
-/* =========================================================
-   STAFF ONLY
-========================================================= */
-
-function renderStaffOnly(container){
-
- const ITEMS_PER_LINE=8;
+ const ITEMS_PER_LINE=16;
 
  for(
   let start=0;
@@ -2818,14 +2274,12 @@ function renderStaffOnly(container){
   const line=
    document.createElement("div");
 
-  line.className=
-   "staff-line";
+  line.className="staff-line";
 
   const svg=
    document.createElement("div");
 
-  svg.className=
-   "staff-svg";
+  svg.className="staff-svg";
 
   line.appendChild(svg);
 
@@ -2843,115 +2297,409 @@ function renderStaffOnly(container){
 
 
 /* =========================================================
-   COMBINED
+ STAFF DRAW
 ========================================================= */
 
-function renderCombined(container){
+function drawStaffLine(
+ container,
+ items,
+ startIndex
+){
 
- const ITEMS_PER_LINE=8;
+ try{
 
- for(
-  let start=0;
-  start<melody.length;
-  start+=ITEMS_PER_LINE
- ){
+  const VF=Vex.Flow;
 
-  const items=
-   melody.slice(
-    start,
-    start+ITEMS_PER_LINE
+  const validItems=
+   items.filter(
+    item=>
+     item.type==="breath" ||
+     item.type==="note"
    );
 
-  const line=
-   document.createElement("div");
+  if(!validItems.length)return;
 
-  line.className=
-   "combined-line";
+  const width=
+   Math.max(
+    1100,
+    200+
+    validItems.length*65
+   );
 
-  const staff=
-   document.createElement("div");
+  const renderer=
+   new VF.Renderer(
+    container,
+    VF.Renderer.Backends.SVG
+   );
 
-  staff.className=
-   "combined-staff";
-
-  line.appendChild(staff);
-
-  container.appendChild(line);
-
-  drawStaffLine(
-   staff,
-   items,
-   start
+  renderer.resize(
+   width,
+   150
   );
 
-  const fingeringRow=
-   document.createElement("div");
+  const context=
+   renderer.getContext();
 
-  fingeringRow.className=
-   "fingering-row";
+  const stave=
+   new VF.Stave(
+    20,
+    35,
+    width-40
+   );
 
-  /*
-   Leave space for clef/key/time signature.
-   Each following cell lines up with the
-   corresponding musical note.
-  */
+  if(startIndex===0){
 
-  const spacer=
-   document.createElement("div");
+   stave
+    .addClef("treble")
+    .addKeySignature(
+     getVexKey(
+      document.getElementById("key").value
+     )
+    )
+    .addTimeSignature(
+     document.getElementById("time").value
+    );
 
-  spacer.style.width="80px";
-  spacer.style.flex="0 0 80px";
+  }else{
 
-  fingeringRow.appendChild(
-   spacer
-  );
+   /*
+    Only one clef per new staff line.
+   */
 
-  items.forEach(item=>{
+   stave.addClef("treble");
 
-   const cell=
-    document.createElement("div");
+  }
 
-   cell.className=
-    "fingering-cell";
+  stave
+   .setContext(context)
+   .draw();
 
-   if(item.type==="rest"){
 
-    cell.innerHTML=
-     `<div class="fingering-empty">
-       BREATH
-      </div>`;
+  const vfNotes=[];
+  const indexMap=[];
 
-   }else{
 
-    const data=
-     WHISTLE[item.pitch];
+  validItems.forEach(
+   item=>{
 
-    if(!data){
+    const realIndex=
+     melody.indexOf(item);
 
-     cell.innerHTML=
-      `<div class="small">
-        —
-       </div>`;
 
-    }else{
+    if(item.type==="breath"){
 
-     cell.appendChild(
-      makeMiniFingering(
-       item.pitch
-      )
+     const n=
+      new VF.GhostNote({
+       duration:"q"
+      });
+
+     vfNotes.push(n);
+
+     indexMap.push(realIndex);
+
+     return;
+
+    }
+
+
+    const info=
+     NOTES[item.pitch];
+
+    if(!info)return;
+
+
+    let duration=
+     item.duration||
+     "q";
+
+
+    const n=
+     new VF.StaveNote({
+
+      clef:"treble",
+
+      keys:[
+       info.key
+      ],
+
+      duration:duration
+
+     });
+
+
+    if(info.sharp){
+
+     n.addAccidental(
+      0,
+      new VF.Accidental("#")
      );
 
     }
 
+    if(info.flat){
+
+     n.addAccidental(
+      0,
+      new VF.Accidental("b")
+     );
+
+    }
+
+
+    if(item.grace){
+
+     n.setKeyStyle(
+      0,
+      {
+       fillStyle:"#7c3aed",
+       strokeStyle:"#7c3aed"
+      }
+     );
+
+    }
+
+
+    if(
+     info.pitchClass &&
+     info.pitchClass==="expert"
+    ){
+
+     n.setStyle({
+      fillStyle:"#dc2626",
+      strokeStyle:"#dc2626"
+     });
+
+    }
+
+
+    if(
+     realIndex===currentIndex
+    ){
+
+     n.setStyle({
+      fillStyle:"#2563eb",
+      strokeStyle:"#2563eb"
+     });
+
+    }
+
+
+    vfNotes.push(n);
+
+    indexMap.push(realIndex);
+
    }
-
-   fingeringRow.appendChild(cell);
-
-  });
-
-  line.appendChild(
-   fingeringRow
   );
+
+
+  if(!vfNotes.length)return;
+
+
+  /*
+   VexFlow can become unreliable if an
+   oversized voice is forced into one line.
+
+   SOFT mode prevents the entire line
+   disappearing when it is incomplete.
+  */
+
+  const voice=
+   new VF.Voice({
+
+    num_beats:getBeats(
+     document.getElementById("time").value
+    ),
+
+    beat_value:getBeatValue(
+     document.getElementById("time").value
+    )
+
+   });
+
+
+  voice.setMode(
+   VF.Voice.Mode.SOFT
+  );
+
+
+  voice.addTickables(
+   vfNotes
+  );
+
+
+  new VF.Formatter()
+   .joinVoices([voice])
+   .format(
+    [voice],
+    width-220
+   );
+
+
+  voice.draw(
+   context,
+   stave
+  );
+
+
+  /*
+   Staff interaction.
+  */
+
+  const svg=
+   container.querySelector("svg");
+
+  if(!svg)return;
+
+
+  const renderedNotes=
+   svg.querySelectorAll(
+    ".vf-stavenote"
+   );
+
+
+  renderedNotes.forEach(
+   (node,i)=>{
+
+    const realIndex=
+     indexMap[i];
+
+    if(
+     realIndex===undefined
+    )return;
+
+
+    node.style.cursor=
+     "pointer";
+
+
+    let holdTimer=null;
+
+    let moved=false;
+
+
+    node.addEventListener(
+     "pointerdown",
+     e=>{
+
+      e.preventDefault();
+
+      moved=false;
+
+      holdTimer=
+       setTimeout(()=>{
+
+        holdTimer=null;
+
+        if(
+         confirm(
+          "Delete this item?"
+         )
+        ){
+
+         deleteAt(
+          realIndex
+         );
+
+        }
+
+       },700);
+
+     }
+    );
+
+
+    node.addEventListener(
+     "pointermove",
+     ()=>{
+
+      moved=true;
+
+      if(holdTimer){
+
+       clearTimeout(
+        holdTimer
+       );
+
+       holdTimer=null;
+
+      }
+
+     }
+    );
+
+
+    node.addEventListener(
+     "pointerup",
+     ()=>{
+
+      if(!holdTimer){
+
+       return;
+
+      }
+
+
+      clearTimeout(
+       holdTimer
+      );
+
+      holdTimer=null;
+
+
+      if(!moved){
+
+       currentIndex=
+        realIndex;
+
+       updateCurrentFromIndex();
+
+       renderAll();
+
+      }
+
+     }
+    );
+
+
+    node.addEventListener(
+     "pointercancel",
+     ()=>{
+
+      if(holdTimer){
+
+       clearTimeout(
+        holdTimer
+       );
+
+       holdTimer=null;
+
+      }
+
+     }
+    );
+
+   }
+  );
+
+
+ }catch(error){
+
+  console.error(
+   "Staff error:",
+   error
+  );
+
+  /*
+   Do NOT erase the whole staff.
+   Leave a useful error message in
+   the affected line only.
+  */
+
+  container.innerHTML=
+   `<p class="small">
+    This line could not be displayed,
+    but your melody is still saved.
+   </p>`;
 
  }
 
@@ -2959,242 +2707,44 @@ function renderCombined(container){
 
 
 /* =========================================================
-   MINI FINGERING
+ KEY SIGNATURE
 ========================================================= */
 
-function makeMiniFingering(note){
+function getVexKey(key){
 
- const data=
-  WHISTLE[note];
+ return {
 
- const wrap=
-  document.createElement("div");
+  D:"D",
+  G:"G",
+  C:"C",
+  A:"A",
+  E:"E"
 
- wrap.className=
-  "fingering-mini";
-
- const name=
-  document.createElement("div");
-
- name.className=
-  "finger-note";
-
- name.textContent=
-  data.name;
-
- wrap.appendChild(name);
-
- data.holes.forEach(
-  covered=>{
-
-   const hole=
-    document.createElement("div");
-
-   hole.className=
-    "hole"+
-    (
-     covered
-      ?" covered"
-      :""
-    );
-
-   wrap.appendChild(hole);
-
-  }
- );
-
- return wrap;
+ }[key]||"D";
 
 }
 
 
-/* =========================================================
-   FINGERINGS ONLY
-========================================================= */
+function getBeats(time){
 
-function renderFingeringsOnly(container){
-
- const grid=
-  document.createElement("div");
-
- grid.className=
-  "fingering-only";
-
- melody.forEach(
-  item=>{
-
-   if(item.type==="rest"){
-
-    const card=
-     document.createElement("div");
-
-    card.className=
-     "fingering-card";
-
-    card.innerHTML=
-     `<div class="big-name">
-       BREATH
-      </div>`;
-
-    grid.appendChild(card);
-
-    return;
-
-   }
-
-   const data=
-    WHISTLE[item.pitch];
-
-   const card=
-    document.createElement("div");
-
-   card.className=
-    "fingering-card";
-
-   if(
-    data &&
-    data.expert
-   ){
-
-    card.classList.add(
-     "expert"
-    );
-
-   }
-
-   if(!data){
-
-    card.innerHTML=
-     `<div class="big-name">
-       ${escapeHTML(
-        NOTES[item.pitch].name
-       )}
-      </div>
-      <div class="small">
-       No stored fingering
-      </div>`;
-
-    grid.appendChild(card);
-
-    return;
-
-   }
-
-   card.innerHTML=
-    `<div class="big-name">
-      ${escapeHTML(data.name)}
-     </div>
-     <div class="number">
-      ${escapeHTML(data.number)}
-     </div>`;
-
-   const holes=
-    document.createElement("div");
-
-   holes.className=
-    "mini-holes";
-
-   data.holes.forEach(
-    covered=>{
-
-     const hole=
-      document.createElement("div");
-
-     hole.className=
-      "hole"+
-      (
-       covered
-        ?" covered"
-        :""
-      );
-
-     holes.appendChild(
-      hole
-     );
-
-    }
-   );
-
-   card.appendChild(
-    holes
-   );
-
-   if(item.grace){
-
-    const grace=
-     document.createElement("div");
-
-    grace.className=
-     "small";
-
-    grace.textContent=
-     "GRACE NOTE";
-
-    card.appendChild(
-     grace
-    );
-
-   }
-
-   if(data.technique){
-
-    const technique=
-     document.createElement("div");
-
-    technique.className=
-     "small";
-
-    technique.textContent=
-     data.technique;
-
-    card.appendChild(
-     technique
-    );
-
-   }
-
-   grid.appendChild(card);
-
-  }
+ return Number(
+  time.split("/")[0]
  );
 
- container.appendChild(
-  grid
+}
+
+
+function getBeatValue(time){
+
+ return Number(
+  time.split("/")[1]
  );
 
 }
 
 
 /* =========================================================
-   VIEW MODE
-========================================================= */
-
-function setViewMode(
- mode,
- button
-){
-
- viewMode=mode;
-
- document.querySelectorAll(
-  ".view-buttons button"
- ).forEach(
-  b=>b.classList.remove(
-   "active"
-  )
- );
-
- button.classList.add(
-  "active"
- );
-
- renderStaff();
-
-}
-
-
-/* =========================================================
-   PLAY MELODY
+ PLAY MELODY
 ========================================================= */
 
 function playMelody(){
@@ -3217,10 +2767,15 @@ function playSequence(){
   currentIndex>=melody.length
  )return;
 
+
  const item=
   melody[currentIndex];
 
- renderAll();
+
+ renderSequence();
+
+ renderStaff();
+
 
  if(item.type==="note"){
 
@@ -3228,27 +2783,30 @@ function playSequence(){
    item.pitch
   );
 
-  playFrequency(
-   NOTES[item.pitch].freq
-  );
+  const info=
+   NOTES[item.pitch];
+
+  if(info){
+
+   playFrequency(
+    info.freq
+   );
+
+  }
+
+ }else{
+
+  showNote(null);
 
  }
 
- const d=
-  DURATIONS.find(
-   x=>x.value===item.duration
-  );
-
- const length=
-  d
-   ?speed*d.beats
-   :speed;
 
  timer=
   setTimeout(
    ()=>{
 
     currentIndex++;
+
 
     if(
      currentIndex>=melody.length
@@ -3269,7 +2827,9 @@ function playSequence(){
       currentIndex=
        melody.length-1;
 
-      renderAll();
+      renderSequence();
+
+      renderStaff();
 
      }
 
@@ -3277,17 +2837,43 @@ function playSequence(){
 
     }
 
+
     playSequence();
 
    },
-   length
+
+   item.grace
+    ?speed/2
+    :getDurationTime(item)
+
   );
 
 }
 
 
+function getDurationTime(item){
+
+ const beat=speed;
+
+ if(item.duration==="h"){
+
+  return beat*2;
+
+ }
+
+ if(item.duration==="w"){
+
+  return beat*4;
+
+ }
+
+ return beat;
+
+}
+
+
 /* =========================================================
-   TEACH
+ TEACH
 ========================================================= */
 
 function teachMe(){
@@ -3319,19 +2905,26 @@ function teachCurrent(){
   currentIndex>=melody.length
  )return;
 
+
  const item=
   melody[currentIndex];
 
- renderAll();
 
- if(item.type==="rest"){
+ renderSequence();
+
+ renderStaff();
+
+
+ if(
+  item.type==="breath"
+ ){
 
   showNote(null);
 
   document.getElementById(
    "status"
   ).textContent=
-   "Item "+
+   "Note "+
    (currentIndex+1)+
    " of "+
    melody.length+
@@ -3343,9 +2936,16 @@ function teachCurrent(){
    item.pitch
   );
 
-  playFrequency(
-   NOTES[item.pitch].freq
-  );
+  const info=
+   NOTES[item.pitch];
+
+  if(info){
+
+   playFrequency(
+    info.freq
+   );
+
+  }
 
   document.getElementById(
    "status"
@@ -3355,27 +2955,24 @@ function teachCurrent(){
    " of "+
    melody.length+
    " — "+
-   NOTES[item.pitch].name;
+   (
+    WHISTLE[item.pitch]
+     ?WHISTLE[item.pitch].name
+     :item.pitch
+   );
 
  }
 
- const d=
-  DURATIONS.find(
-   x=>x.value===item.duration
-  );
-
- const length=
-  d
-   ?speed*d.beats
-   :speed;
 
  clearTimeout(timer);
+
 
  timer=
   setTimeout(
    ()=>{
 
     currentIndex++;
+
 
     if(
      currentIndex>=melody.length
@@ -3396,7 +2993,9 @@ function teachCurrent(){
       currentIndex=
        melody.length-1;
 
-      renderAll();
+      renderSequence();
+
+      renderStaff();
 
       document.getElementById(
        "status"
@@ -3409,10 +3008,15 @@ function teachCurrent(){
 
     }
 
+
     teachCurrent();
 
    },
-   length
+
+   item.grace
+    ?speed/2
+    :getDurationTime(item)
+
   );
 
 }
@@ -3424,7 +3028,8 @@ function pauseTeach(){
 
  document.getElementById(
   "status"
- ).textContent="Paused.";
+ ).textContent=
+  "Paused.";
 
 }
 
@@ -3487,13 +3092,16 @@ function setSpeed(
 
  speed=value;
 
- document.querySelectorAll(
-  ".speed"
- ).forEach(
-  b=>b.classList.remove(
-   "active"
+ document
+  .querySelectorAll(
+   ".speed"
   )
- );
+  .forEach(
+   b=>
+    b.classList.remove(
+     "active"
+    )
+  );
 
  button.classList.add(
   "active"
@@ -3503,7 +3111,7 @@ function setSpeed(
 
 
 /* =========================================================
-   SAVE
+ SAVE / LOAD
 ========================================================= */
 
 function getSong(){
@@ -3532,11 +3140,8 @@ function getSong(){
     "whistle"
    ).value,
 
-  viewMode:viewMode,
-
-  pianoLocked:pianoLocked,
-
-  melody:melody
+  melody:
+   melody
 
  };
 
@@ -3567,6 +3172,7 @@ function loadSong(){
    "ML6CMGTW_song"
   );
 
+
  if(!saved){
 
   document.getElementById(
@@ -3578,16 +3184,19 @@ function loadSong(){
 
  }
 
+
  try{
 
   const song=
    JSON.parse(saved);
 
+
   document.getElementById(
    "songName"
   ).value=
    song.songName||
-   "Untitled Song";
+   "";
+
 
   document.getElementById(
    "key"
@@ -3595,11 +3204,13 @@ function loadSong(){
    song.key||
    "D";
 
+
   document.getElementById(
    "time"
   ).value=
    song.time||
    "4/4";
+
 
   document.getElementById(
    "whistle"
@@ -3607,74 +3218,55 @@ function loadSong(){
    song.whistle||
    "D";
 
+
   melody=
    (song.melody||[])
-   .map(item=>{
+    .map(item=>{
 
-    if(
-     item.type
-    ){
+     if(item.type){
+
+      return item;
+
+     }
 
      return {
 
-      ...item,
+      type:"note",
+
+      pitch:item.pitch,
 
       duration:
        item.duration||
        "q",
 
-      grace:
-       !!item.grace
+      grace:false
 
      };
 
-    }
+    })
+    .filter(
+     item=>
+      item.type==="breath"||
+      item.type==="note"
+    );
 
-    return {
-
-     type:"note",
-
-     pitch:item.pitch,
-
-     duration:
-      item.duration||
-      "q",
-
-     grace:false
-
-    };
-
-   })
-   .filter(
-    item=>
-     item.type==="rest"||
-     !!NOTES[item.pitch]
-   );
 
   currentIndex=
    melody.length
     ?0
     :-1;
 
-  viewMode=
-   song.viewMode||
-   "combined";
-
-  pianoLocked=
-   !!song.pianoLocked;
-
-  updateViewButtons();
-
-  updatePianoLock();
 
   renderAll();
 
   updateCurrentFromIndex();
 
+
   document.getElementById(
    "saveStatus"
   ).textContent=
    "✓ Saved song loaded.";
+
 
  }catch(error){
 
@@ -3691,99 +3283,7 @@ function loadSong(){
 
 
 /* =========================================================
-   SAVE CURRENT VIEW
-========================================================= */
-
-function saveCurrentView(){
-
- localStorage.setItem(
-  "ML6CMGTW_view",
-  JSON.stringify({
-
-   viewMode:viewMode,
-
-   pianoLocked:pianoLocked
-
-  })
- );
-
- document.getElementById(
-  "saveStatus"
- ).textContent=
-  "✓ Current display view saved.";
-
-}
-
-
-function updateViewButtons(){
-
- document.querySelectorAll(
-  ".view-buttons button"
- ).forEach(
-  b=>b.classList.remove(
-   "active"
-  )
- );
-
- const button=
-  document.getElementById(
-   viewMode==="staff"
-    ?"viewStaff"
-    :
-    viewMode==="fingerings"
-     ?"viewFingerings"
-     :"viewCombined"
-  );
-
- if(button){
-  button.classList.add(
-   "active"
-  );
- }
-
-}
-
-
-/* =========================================================
-   PIANO LOCK
-========================================================= */
-
-function togglePianoLock(){
-
- pianoLocked=
-  !pianoLocked;
-
- updatePianoLock();
-
-}
-
-
-function updatePianoLock(){
-
- document.body.classList.toggle(
-  "piano-fixed",
-  pianoLocked
- );
-
- const button=
-  document.getElementById(
-   "pianoLockButton"
-  );
-
- if(button){
-
-  button.textContent=
-   pianoLocked
-    ?"🔓 Unlock Piano"
-    :"🔒 Lock Piano";
-
- }
-
-}
-
-
-/* =========================================================
-   DOWNLOAD
+ DOWNLOAD
 ========================================================= */
 
 function downloadSong(){
@@ -3798,19 +3298,26 @@ function downloadSong(){
     )
    ],
    {
-    type:"application/json"
+    type:
+     "application/json"
    }
   );
+
 
  const url=
   URL.createObjectURL(
    blob
   );
 
+
  const a=
-  document.createElement("a");
+  document.createElement(
+   "a"
+  );
+
 
  a.href=url;
+
 
  a.download=
   (
@@ -3819,11 +3326,12 @@ function downloadSong(){
    ).value||
    "ML6CMGTW-song"
   )
-  .replace(
-   /[^a-z0-9-_]/gi,
-   "_"
-  )+
-  ".ml6tw.json";
+   .replace(
+    /[^a-z0-9-_]/gi,
+    "_"
+   )+
+   ".ml6tw.json";
+
 
  document.body.appendChild(a);
 
@@ -3837,7 +3345,7 @@ function downloadSong(){
 
 
 /* =========================================================
-   PREVIEW
+ PREVIEW
 ========================================================= */
 
 function previewLesson(){
@@ -3847,14 +3355,17 @@ function previewLesson(){
    "lessonPreview"
   );
 
+
  preview.innerHTML=
   buildLessonHTML();
+
 
  document.getElementById(
   "previewOverlay"
  ).classList.add(
   "show"
  );
+
 
  setTimeout(
   renderPreviewStaff,
@@ -3864,10 +3375,6 @@ function previewLesson(){
 }
 
 
-/* =========================================================
-   PREVIEW HTML
-========================================================= */
-
 function buildLessonHTML(){
 
  const song=
@@ -3876,15 +3383,18 @@ function buildLessonHTML(){
   ).value||
   "Untitled Song";
 
+
  const key=
   document.getElementById(
    "key"
   ).value;
 
+
  const time=
   document.getElementById(
    "time"
   ).value;
+
 
  const whistle=
   document.getElementById(
@@ -3892,7 +3402,9 @@ function buildLessonHTML(){
   ).value+
   " whistle";
 
+
  let html="";
+
 
  html+=`
 
@@ -3914,27 +3426,111 @@ function buildLessonHTML(){
 
  `;
 
+
+ html+=`
+
+ <div class="preview-player"
+      id="previewPlayer">
+
+  <div class="preview-player-header"
+       onclick="togglePreviewPlayer()">
+
+   <span>
+    🎵 Lesson Player
+   </span>
+
+   <span id="previewPlayerToggle">
+    −
+   </span>
+
+  </div>
+
+  <div class="preview-player-body">
+
+   <div class="preview-player-row">
+
+    <button onclick="previewPlay()">
+     ▶ Play
+    </button>
+
+    <button onclick="previewPause()">
+     ⏸ Pause
+    </button>
+
+    <button onclick="previewRestart()">
+     ↻ Restart
+    </button>
+
+    <button onclick="previewPrevious()">
+     ◀
+    </button>
+
+    <button onclick="previewNext()">
+     ▶
+    </button>
+
+   </div>
+
+   <div class="preview-player-row"
+        style="margin-top:8px">
+
+    <button onclick="setPreviewSpeed(1500,this)">
+     SLOW
+    </button>
+
+    <button onclick="setPreviewSpeed(900,this)">
+     NORMAL
+    </button>
+
+    <button onclick="setPreviewSpeed(500,this)">
+     FAST
+    </button>
+
+    <button onclick="addBreathFromPreview()">
+     🫁 Add Breath
+    </button>
+
+   </div>
+
+   <div class="preview-player-position"
+        id="previewPlayerPosition">
+
+    Ready
+
+   </div>
+
+  </div>
+
+ </div>
+
+ `;
+
+
  html+=`
 
  <div class="preview-meta">
 
   <div>
-   <strong>Key</strong><br>
+   <strong>Key</strong>
+   <br>
    ${escapeHTML(key)}
   </div>
 
   <div>
-   <strong>Time</strong><br>
+   <strong>Time</strong>
+   <br>
    ${escapeHTML(time)}
   </div>
 
   <div>
-   <strong>Whistle</strong><br>
+   <strong>Whistle</strong>
+   <br>
    ${escapeHTML(whistle)}
   </div>
 
   <div>
-   <strong>Items</strong><br>
+   <strong>Items</strong>
+   <br>
    ${melody.length}
   </div>
 
@@ -3942,18 +3538,19 @@ function buildLessonHTML(){
 
  `;
 
+
  html+=`
 
  <h3>
   Musical Staff
  </h3>
 
- <div
-  id="previewStaff"
-  style="width:100%;overflow-x:auto">
+ <div class="preview-staff"
+      id="previewStaff">
  </div>
 
  `;
+
 
  html+=`
 
@@ -3961,24 +3558,25 @@ function buildLessonHTML(){
   Note & Fingering Lesson
  </h3>
 
+ <div class="preview-notes">
  `;
 
- html+=`
-
- <div class="fingering-only">
- `;
 
  melody.forEach(
-  item=>{
+  (item,index)=>{
 
-   if(item.type==="rest"){
+   if(
+    item.type==="breath"
+   ){
 
     html+=`
 
-    <div class="fingering-card">
+    <div class="preview-breath">
 
-     <div class="big-name">
-      BREATH
+     🫁 BREATH
+
+     <div class="small">
+      Breath point
      </div>
 
     </div>
@@ -3989,105 +3587,116 @@ function buildLessonHTML(){
 
    }
 
+
    const data=
     WHISTLE[item.pitch];
 
-   html+=`
 
-   <div class="fingering-card
-    ${
-     data&&data.expert
-      ?"expert"
-      :""
-    }">
-
-    <div class="big-name">
-     ${
-      escapeHTML(
-       NOTES[item.pitch].name
-      )
-     }
-    </div>
-
-    `;
-
-   if(data){
+   if(!data){
 
     html+=`
 
-    <div class="number">
-     ${escapeHTML(
-      data.number
-     )}
-    </div>
+    <div class="preview-note-row expert-card">
 
-    <div class="mini-holes">
-    `;
+     <div class="preview-note-info">
 
-    data.holes.forEach(
-     covered=>{
-
-      html+=`
-
-      <div class="hole ${
-       covered
-        ?"covered"
-        :""
-      }"></div>
-
-      `;
-
-     }
-    );
-
-    html+=`
-
-    </div>
-
-    `;
-
-    if(item.grace){
-
-     html+=`
-      <div class="small">
-       GRACE NOTE
-      </div>
-     `;
-
-    }
-
-    if(data.technique){
-
-     html+=`
-
-      <div class="small">
+      <div class="name">
        ${escapeHTML(
-        data.technique
+        NOTES[item.pitch]
+         ?NOTES[item.pitch].name
+         :item.pitch
        )}
       </div>
 
-      `;
+      <div class="small">
+       No tin whistle fingering stored
+      </div>
 
-    }
-
-   }else{
-
-    html+=`
-
-     <div class="small">
-      No stored fingering
      </div>
+
+    </div>
 
     `;
 
+    return;
+
    }
 
+
    html+=`
+
+   <div class="preview-note-row
+    ${data.expert?"expert-card":""}">
+
+    <div class="preview-note-info">
+
+     <div class="name">
+
+      ${escapeHTML(
+       data.name
+      )}
+
+     </div>
+
+     <div class="number">
+
+      ${escapeHTML(
+       data.number
+      )}
+
+     </div>
+
+     ${
+      item.grace
+       ?'<div class="small">GRACE NOTE</div>'
+       :""
+     }
+
+     ${
+      data.expert
+       ?'<div class="small" style="color:#b91c1c;font-weight:800">EXPERT TECHNIQUE</div>'
+       :""
+     }
+
+     <div class="small">
+
+      ${
+       durationText(
+        item.duration
+       )
+      }
+
+     </div>
+
     </div>
+
+
+    <div class="preview-note-diagram">
+
+     ${
+      data.holes.map(
+       covered=>
+        `<div class="preview-hole ${
+         covered
+          ?"covered"
+          :""
+        }"></div>`
+      ).join("")
+     }
+
+     <div class="small">
+      ● covered &nbsp; ○ open
+     </div>
+
+    </div>
+
+   </div>
+
    `;
 
   }
  );
+
 
  html+=`
 
@@ -4095,13 +3704,382 @@ function buildLessonHTML(){
 
  `;
 
+
+ html+=`
+
+ <div style="
+  margin-top:25px;
+  text-align:center;
+  font-size:.9rem;
+  color:#64748b
+ ">
+
+ ML6CMG.T.W teaching system
+
+ <br>
+
+ 6 → 5 → 4 → 3 → 2 → 1 → 0
+
+ <br>
+
+ Upper octave:
+
+ 6^ → 5^ → 4^ → 3^ → 2^ → 1^ → 0^
+
+ </div>
+
+ `;
+
+
  return html;
 
 }
 
 
+function durationText(duration){
+
+ if(duration==="h"){
+
+  return "Half note — 2 beats";
+
+ }
+
+ if(duration==="w"){
+
+  return "Whole note — 4 beats";
+
+ }
+
+ return "Quarter note — 1 beat";
+
+}
+
+
 /* =========================================================
-   PREVIEW STAFF
+ PREVIEW PLAYER
+========================================================= */
+
+let previewIndex=0;
+
+let previewTimer=null;
+
+let previewSpeed=900;
+
+
+function togglePreviewPlayer(){
+
+ const player=
+  document.getElementById(
+   "previewPlayer"
+  );
+
+ if(!player)return;
+
+ player.classList.toggle(
+  "minimised"
+ );
+
+ const toggle=
+  document.getElementById(
+   "previewPlayerToggle"
+  );
+
+ if(toggle){
+
+  toggle.textContent=
+   player.classList.contains(
+    "minimised"
+   )
+    ?"+"
+    :"−";
+
+ }
+
+}
+
+
+function setPreviewSpeed(
+ value,
+ button
+){
+
+ previewSpeed=value;
+
+ document
+  .querySelectorAll(
+   ".preview-player button"
+  )
+  .forEach(
+   b=>
+    b.classList.remove(
+     "primary"
+    )
+  );
+
+ if(button){
+
+  button.classList.add(
+   "primary"
+  );
+
+ }
+
+}
+
+
+function updatePreviewPosition(){
+
+ const el=
+  document.getElementById(
+   "previewPlayerPosition"
+  );
+
+ if(!el)return;
+
+ if(
+  !melody.length
+ ){
+
+  el.textContent=
+   "No notes";
+
+  return;
+
+ }
+
+ const item=
+  melody[previewIndex];
+
+
+ if(item.type==="breath"){
+
+  el.textContent=
+   "Item "+
+   (previewIndex+1)+
+   " of "+
+   melody.length+
+   " — BREATH";
+
+ }else{
+
+  el.textContent=
+   "Item "+
+   (previewIndex+1)+
+   " of "+
+   melody.length+
+   " — "+
+   (
+    WHISTLE[item.pitch]
+     ?WHISTLE[item.pitch].name
+     :item.pitch
+   );
+
+ }
+
+}
+
+
+function previewPlay(){
+
+ if(!melody.length)return;
+
+ clearTimeout(
+  previewTimer
+ );
+
+ previewPlayCurrent();
+
+}
+
+
+function previewPlayCurrent(){
+
+ if(
+  previewIndex<0||
+  previewIndex>=melody.length
+ ){
+
+  previewIndex=0;
+
+ }
+
+
+ updatePreviewPosition();
+
+
+ const item=
+  melody[previewIndex];
+
+
+ if(item.type==="note"){
+
+  const info=
+   NOTES[item.pitch];
+
+  if(info){
+
+   playFrequency(
+    info.freq
+   );
+
+  }
+
+ }
+
+
+ previewTimer=
+  setTimeout(
+   ()=>{
+
+    previewIndex++;
+
+    if(
+     previewIndex>=melody.length
+    ){
+
+     previewIndex=0;
+
+    }
+
+    previewPlayCurrent();
+
+   },
+
+   item.grace
+    ?previewSpeed/2
+    :getDurationTime(item)
+
+  );
+
+}
+
+
+function previewPause(){
+
+ clearTimeout(
+  previewTimer
+ );
+
+ updatePreviewPosition();
+
+}
+
+
+function previewRestart(){
+
+ clearTimeout(
+  previewTimer
+ );
+
+ previewIndex=0;
+
+ updatePreviewPosition();
+
+}
+
+
+function previewPrevious(){
+
+ clearTimeout(
+  previewTimer
+ );
+
+ previewIndex=
+  Math.max(
+   0,
+   previewIndex-1
+  );
+
+ updatePreviewPosition();
+
+}
+
+
+function previewNext(){
+
+ clearTimeout(
+  previewTimer
+ );
+
+ previewIndex=
+  Math.min(
+   melody.length-1,
+   previewIndex+1
+  );
+
+ updatePreviewPosition();
+
+}
+
+
+/* =========================================================
+ ADD BREATH FROM PREVIEW
+========================================================= */
+
+function addBreathFromPreview(){
+
+ /*
+  Insert a breath after the currently
+  selected preview item.
+ */
+
+ const position=
+  previewIndex>=0
+   ?previewIndex+1
+   :melody.length;
+
+
+ saveHistory();
+
+ melody.splice(
+  position,
+  0,
+  {
+   type:"breath"
+  }
+ );
+
+
+ previewIndex=
+  position;
+
+
+ currentIndex=
+  position;
+
+
+ renderAll();
+
+ updatePreviewPosition();
+
+ /*
+  Rebuild preview so the breath
+  appears immediately.
+ */
+
+ const preview=
+  document.getElementById(
+   "lessonPreview"
+  );
+
+ if(preview){
+
+  preview.innerHTML=
+   buildLessonHTML();
+
+  setTimeout(
+   renderPreviewStaff,
+   100
+  );
+
+ }
+
+
+}
+
+
+/* =========================================================
+ PREVIEW STAFF
 ========================================================= */
 
 function renderPreviewStaff(){
@@ -4116,14 +4094,18 @@ function renderPreviewStaff(){
   !melody.length
  )return;
 
+
  container.innerHTML="";
+
 
  try{
 
   const VF=
    Vex.Flow;
 
-  const ITEMS_PER_LINE=8;
+
+  const ITEMS_PER_LINE=16;
+
 
   for(
    let start=0;
@@ -4137,33 +4119,215 @@ function renderPreviewStaff(){
      start+ITEMS_PER_LINE
     );
 
+
    const holder=
-    document.createElement("div");
+    document.createElement(
+     "div"
+    );
 
-   holder.style.width="100%";
+   holder.className=
+    "preview-staff-line";
 
-   holder.style.overflowX=
-    "auto";
-
-   holder.style.marginBottom=
-    "12px";
 
    container.appendChild(
     holder
    );
 
-   const svg=
-    document.createElement("div");
 
-   svg.className=
-    "staff-svg";
+   const width=
+    Math.max(
+     1100,
+     200+
+     items.length*65
+    );
 
-   holder.appendChild(svg);
 
-   drawPreviewLine(
-    svg,
-    items,
-    start
+   const renderer=
+    new VF.Renderer(
+     holder,
+     VF.Renderer.Backends.SVG
+    );
+
+
+   renderer.resize(
+    width,
+    140
+   );
+
+
+   const context=
+    renderer.getContext();
+
+
+   const stave=
+    new VF.Stave(
+     20,
+     30,
+     width-40
+    );
+
+
+   if(start===0){
+
+    stave
+     .addClef("treble")
+     .addKeySignature(
+      getVexKey(
+       document.getElementById(
+        "key"
+       ).value
+      )
+     )
+     .addTimeSignature(
+      document.getElementById(
+       "time"
+      ).value
+     );
+
+   }else{
+
+    stave.addClef(
+     "treble"
+    );
+
+   }
+
+
+   stave
+    .setContext(context)
+    .draw();
+
+
+   const notes=[];
+
+
+   items.forEach(
+    item=>{
+
+     if(
+      item.type==="breath"
+     ){
+
+      notes.push(
+       new VF.GhostNote({
+        duration:"q"
+       })
+      );
+
+      return;
+
+     }
+
+
+     const info=
+      NOTES[item.pitch];
+
+     if(!info)return;
+
+
+     const n=
+      new VF.StaveNote({
+
+       clef:"treble",
+
+       keys:[
+        info.key
+       ],
+
+       duration:
+        item.duration||
+        "q"
+
+      });
+
+
+     if(info.sharp){
+
+      n.addAccidental(
+       0,
+       new VF.Accidental(
+        "#"
+       )
+      );
+
+     }
+
+
+     if(info.flat){
+
+      n.addAccidental(
+       0,
+       new VF.Accidental(
+        "b"
+       )
+      );
+
+     }
+
+
+     if(item.grace){
+
+      n.setKeyStyle(
+       0,
+       {
+        fillStyle:"#7c3aed",
+        strokeStyle:"#7c3aed"
+       }
+      );
+
+     }
+
+
+     notes.push(n);
+
+    }
+   );
+
+
+   if(!notes.length)continue;
+
+
+   const voice=
+    new VF.Voice({
+
+     num_beats:
+      getBeats(
+       document.getElementById(
+        "time"
+       ).value
+      ),
+
+     beat_value:
+      getBeatValue(
+       document.getElementById(
+        "time"
+       ).value
+      )
+
+    });
+
+
+   voice.setMode(
+    VF.Voice.Mode.SOFT
+   );
+
+
+   voice.addTickables(
+    notes
+   );
+
+
+   new VF.Formatter()
+    .joinVoices([voice])
+    .format(
+     [voice],
+     width-220
+    );
+
+
+   voice.draw(
+    context,
+    stave
    );
 
   }
@@ -4171,156 +4335,37 @@ function renderPreviewStaff(){
  }catch(error){
 
   console.error(
+   "Preview staff error:",
    error
   );
 
+  container.innerHTML=
+   `<p class="small">
+    The staff could not be displayed.
+    Your melody remains saved.
+   </p>`;
+
  }
 
 }
 
 
 /* =========================================================
-   PREVIEW LINE
-========================================================= */
-
-function drawPreviewLine(
- container,
- items,
- startIndex
-){
-
- const VF=
-  Vex.Flow;
-
- const width=
-  Math.max(
-   1000,
-   window.innerWidth-70
-  );
-
- const renderer=
-  new VF.Renderer(
-   container,
-   VF.Renderer.Backends.SVG
-  );
-
- renderer.resize(
-  width,
-  145
- );
-
- const context=
-  renderer.getContext();
-
- const stave=
-  new VF.Stave(
-   20,
-   30,
-   width-40
-  );
-
- if(startIndex===0){
-
-  stave
-   .addClef("treble")
-   .addKeySignature(
-    getVexKey(
-     document.getElementById(
-      "key"
-     ).value
-    )
-   )
-   .addTimeSignature(
-    document.getElementById(
-     "time"
-    ).value
-   );
-
- }else{
-
-  stave.addClef(
-   "treble"
-  );
-
- }
-
- stave
-  .setContext(context)
-  .draw();
-
- const notes=[];
-
- items.forEach(
-  item=>{
-
-   const n=
-    createVexNote(item);
-
-   if(n){
-    notes.push(n);
-   }
-
-  }
- );
-
- if(!notes.length)return;
-
- const voice=
-  new VF.Voice({
-
-   num_beats:
-    Math.max(
-     1,
-     getBeats(
-      document.getElementById(
-       "time"
-      ).value
-     )
-    ),
-
-   beat_value:
-    getBeatValue(
-     document.getElementById(
-      "time"
-     ).value
-    )
-
-  });
-
- voice.setMode(
-  VF.Voice.Mode.SOFT
- );
-
- voice.addTickables(
-  notes
- );
-
- new VF.Formatter()
-  .joinVoices([voice])
-  .format(
-   [voice],
-   width-220
-  );
-
- voice.draw(
-  context,
-  stave
- );
-
-}
-
-
-/* =========================================================
-   COPY
+ COPY
 ========================================================= */
 
 async function copyLesson(){
 
  let text="";
 
- text+="ML6CMG.T.W\n";
 
- text+="Tin Whistle Melody Teacher\n\n";
+ text+=
+  "ML6CMG.T.W\n";
+
+
+ text+=
+  "Tin Whistle Melody Teacher\n\n";
+
 
  text+=
   (
@@ -4331,85 +4376,106 @@ async function copyLesson(){
   )+
   "\n\n";
 
- text+="Key: "+
+
+ text+=
+  "Key: "+
   document.getElementById(
    "key"
   ).value+
   "\n";
 
- text+="Time: "+
+
+ text+=
+  "Time: "+
   document.getElementById(
    "time"
   ).value+
   "\n";
 
- text+="Whistle: "+
+
+ text+=
+  "Whistle: "+
   document.getElementById(
    "whistle"
   ).value+
   "\n\n";
 
+
  text+="MELODY\n\n";
+
 
  melody.forEach(
   (item,i)=>{
 
-   if(item.type==="rest"){
+   if(
+    item.type==="breath"
+   ){
 
     text+=
      (i+1)+
      ". BREATH\n";
 
-   }else{
+    return;
 
-    const data=
-     WHISTLE[item.pitch];
+   }
+
+
+   const data=
+    WHISTLE[item.pitch];
+
+
+   if(!data){
 
     text+=
      (i+1)+
      ". "+
-     NOTES[item.pitch].name+
-     " — "+
-     durationName(item)+
+     item.pitch+
      "\n";
 
-    if(data){
-
-     text+=
-      "Teaching number: "+
-      data.number+
-      "\n";
-
-     text+=
-      data.holes
-       .map(
-        h=>h?"●":"○"
-       )
-       .join(" ")+
-      "\n";
-
-     if(data.technique){
-
-      text+=
-       data.technique+
-       "\n";
-
-     }
-
-    }
-
-    text+="\n";
+    return;
 
    }
 
+
+   text+=
+    (i+1)+
+    ". "+
+    data.name+
+    " — "+
+    data.number+
+    " — "+
+    durationText(
+     item.duration
+    )+
+    (
+     item.grace
+      ?" — GRACE NOTE"
+      :""
+    )+
+    "\n";
+
+
+   text+=
+    data.holes
+     .map(
+      h=>
+       h
+        ?"●"
+        :"○"
+     )
+     .join(" ")+
+    "\n";
+
   }
  );
+
 
  try{
 
   await navigator.clipboard.writeText(
    text
   );
+
 
   document.getElementById(
    "saveStatus"
@@ -4428,7 +4494,7 @@ async function copyLesson(){
 
 
 /* =========================================================
-   PRINT
+ PRINT
 ========================================================= */
 
 function printLesson(){
@@ -4438,6 +4504,7 @@ function printLesson(){
    "previewOverlay"
   );
 
+
  if(
   !overlay.classList.contains(
    "show"
@@ -4445,6 +4512,7 @@ function printLesson(){
  ){
 
   previewLesson();
+
 
   setTimeout(
    ()=>window.print(),
@@ -4460,7 +4528,15 @@ function printLesson(){
 }
 
 
+/* =========================================================
+ CLOSE PREVIEW
+========================================================= */
+
 function closePreview(){
+
+ clearTimeout(
+  previewTimer
+ );
 
  document.getElementById(
   "previewOverlay"
@@ -4472,10 +4548,97 @@ function closePreview(){
 
 
 /* =========================================================
-   ESCAPE HTML
+ VIEW MODE
 ========================================================= */
 
-function escapeHTML(value){
+function setView(
+ mode,
+ button
+){
+
+ document
+  .querySelectorAll(
+   ".view-buttons button"
+  )
+  .forEach(
+   b=>
+    b.classList.remove(
+     "active"
+    )
+  );
+
+ button.classList.add(
+  "active"
+ );
+
+
+ const staff=
+  document.getElementById(
+   "staffView"
+  );
+
+
+ if(mode==="fingering"){
+
+  staff.classList.add(
+   "view-hidden"
+  );
+
+ }else{
+
+  staff.classList.remove(
+   "view-hidden"
+  );
+
+ }
+
+}
+
+
+/* =========================================================
+ PIANO LOCK
+========================================================= */
+
+function togglePianoLock(){
+
+ pianoLocked=
+  !pianoLocked;
+
+
+ document.body.classList.toggle(
+  "piano-locked",
+  pianoLocked
+ );
+
+
+ const button=
+  document.getElementById(
+   "pianoLockButton"
+  );
+
+
+ if(pianoLocked){
+
+  button.textContent=
+   "🔓 Unlock Piano";
+
+ }else{
+
+  button.textContent=
+   "🔒 Lock Piano";
+
+ }
+
+}
+
+
+/* =========================================================
+ ESCAPE HTML
+========================================================= */
+
+function escapeHTML(
+ value
+){
 
  return String(value)
   .replace(
@@ -4503,7 +4666,7 @@ function escapeHTML(value){
 
 
 /* =========================================================
-   RENDER EVERYTHING
+ RENDER EVERYTHING
 ========================================================= */
 
 function renderAll(){
@@ -4516,12 +4679,13 @@ function renderAll(){
 
 
 /* =========================================================
-   SETTINGS
+ SETTINGS
 ========================================================= */
 
 document.getElementById(
  "key"
-).addEventListener(
+)
+.addEventListener(
  "change",
  ()=>{
 
@@ -4533,7 +4697,8 @@ document.getElementById(
 
 document.getElementById(
  "time"
-).addEventListener(
+)
+.addEventListener(
  "change",
  ()=>{
 
@@ -4544,7 +4709,7 @@ document.getElementById(
 
 
 /* =========================================================
-   KEYBOARD
+ KEYBOARD
 ========================================================= */
 
 document.addEventListener(
@@ -4560,10 +4725,13 @@ document.addEventListener(
    event.preventDefault();
 
    if(melody.length){
+
     teachMe();
+
    }
 
   }
+
 
   if(
    event.key==="Escape"
@@ -4578,7 +4746,7 @@ document.addEventListener(
 
 
 /* =========================================================
-   START
+ START
 ========================================================= */
 
 buildPiano();
@@ -4589,7 +4757,6 @@ renderStaff();
 
 showNote(null);
 
-updatePianoLock();
 
 window.addEventListener(
  "load",
@@ -4597,7 +4764,9 @@ window.addEventListener(
 
   setTimeout(
    ()=>{
+
     renderStaff();
+
    },
    300
   );
